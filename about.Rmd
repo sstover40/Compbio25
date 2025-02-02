@@ -2,4 +2,6 @@
 title: "About This Website"
 ---
 
-More about this website.
+This website is a repository for all coding homework I do in R. I may use 
+it later as a full website for myself and link to projects that I am working on.
+We shall see...
