@@ -1,0 +1,58 @@
+---
+title: "HW3"
+author: "Sarah Stover"
+date: "2025-01-29"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Q1: find /s{2,} 
+    #finds any place where there are 2 spaces or more
+  replace ,
+    # replaces the spaces with a comma 
+    
+Q2: find (\b\w+\b)\, (\b\w+\b)\, (.*) 
+    #capturing first word, second word, and rest of line
+  replace  \2\ \1\ (\3)
+    #switch first and second word, add space and put "()" around rest of line (uni title)
+  
+Q3: find (\bmp3 \b) 
+    #where does it say mp3 at the end of the file name
+  replace \1\n 
+    #add a new line after mp3 
+  
+Q4: find (\d+)\s+(.*)(\.mp3) 
+   #capturing the #s in the beginning, the title, mp3 at the end 
+  replace \2_\1\3
+    #move the title to the beginning, add underscore, #s and then mp3
+  
+Q5: find (\w)\w+,(\w+,)\d+.+,(\d+)
+    #captures first initial of first word, 2nd word after the "," plus the , before the first #, and the final number in the sequence 
+  replace \1_\2\3
+    # got rid of the first integer/decimal and the first word excepting the first initial. added an "_" between the initial and the 2nd word 
+  
+Q6: find (\w)\w+,(\w{4})\w+.+,(\d+)
+  #same things captured in Q5 except this only includes the first 4 letters in the second word 
+  replace \1_\2\,\3
+  
+Q7: find (\w{3})\w+,(\w{3})\w+,(\d+.+),(\d+)
+  # captures ONLY the first 3 letters of word 1 and word 2, captures the 2 numbers seperately with one of them being the decimal 
+  replace \1\2, \4, \3
+  #merges the 6 letters together, places the whole number before the decimal and adds spaces and commas 
+  
+Q8: find [^a-zA-Z0-9,/.\s] 
+    #captures all special characters or all characters that are not letters, numbers or spaces
+    replace 
+    #replaces the undesired characters with nothing (deletes them)
+    
+  find (^(?:[^,],){8}(?:[^,]))()(.*) 
+  #finds everything up to 8 commas in a line (gets to our column of    interest). It captures extra space and then the rest of the line 
+  replace \1\3
+    #this remove the extra spaces by only including the first and third captured things
+
+Note: I tried variations on this -> (?<=\n).*(?=\n) to see if I could prevent all the underscores in the first line from also being removed but there seemed to be no way to exclude that line. ls
+
+
