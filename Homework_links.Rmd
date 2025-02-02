@@ -2,11 +2,11 @@
 title: "Homework_links"
 author: "Sarah Stover"
 date: "2025-01-24"
-output: html_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-week 3 homework [HW3 Link] (HW3.html) 
+Week 3 homework [HW3 Link] (HW3.html) 
+Week 4 Homework [HW4 link] (HW4.html)
