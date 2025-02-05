@@ -87,7 +87,7 @@ print(queue)
 d)
 ```{r}
 which(queue == "aphid")
-print(queue)
+
 ```
 Question 5
 ```{r}
