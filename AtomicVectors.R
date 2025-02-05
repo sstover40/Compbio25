@@ -226,7 +226,24 @@ z[which(z<3)] #get the values of the indexes
 z[(-(length(z):length(z)-2))] #sequence depends on the length of the vector itself,
 #but not the first two 2 element
 
+#can also subset using named vector elements
+names(z) <- letters[1:5]
+z[c("b", "c")]
 
+x <- 1:5
+x != 2
+x == 1 & y == 7
+x == 1 | y == 7 # this is an or statement now
+xor(x == 3, y == 3) #one or the other of these statements can be true but NOT BOTH
+
+z2 <- 5
+
+z2 == 4 | 6 #gives wrong answer, 6 is out of context, a floating number not a boolean
+z2 == 4 | z2 == 6
+
+z <- runif(10) #simple integer seq
+print(z)
+set.seed(90)
 
 
 
