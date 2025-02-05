@@ -245,6 +245,27 @@ z <- runif(10) #simple integer seq
 print(z)
 set.seed(90)
 
+z > 0.5 # create a logical vector
+z[ z > 0.5 ] # use index as a call
+which(z < 0.5) # use to get indices for the logical
+z[which(z < 0.5)] #does the same as above
+
+zD <- c(z, NA, NA) #contaminate it
+zd[zD < 0.5]  #NA values carried! oops
+zD[which(zD < 0.5)] #NA values dropped
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
