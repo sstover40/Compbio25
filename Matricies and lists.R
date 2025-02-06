@@ -79,6 +79,215 @@ d_frame <- data.frame(var_a, var_b, var_c)
 print(d_frame)
 str(d_frame=)
 
+#adding rows into an existing data frame --> pass in a list (cant do w/ atomic vector)
+
+new_data <- list(var_a=13, var_b="HighN", var_c=0.668)
+print(new_data)
+str(new_data)
+
+d_frame <- rbind(d_frame, new_data)
+str(d_frame)
+tail(d_frame)
+
+### Data Frames
+# a data frame is a list of equal-lengthed vectors, each of which is a column
+
+var_a <- 1:12
+var_b <- rep(c("Con","LowN","HighN"),each=4)
+var_c <- runif(12)
+d_frame <- data.frame(var_a,var_b,var_c)
+print(d_frame)
+str(d_frame)
+
+# add another row with rbind
+# make sure you add a list, with each item corresponding to a column
+
+# newData <- data.frame(list(varA=13,varB="HighN",varC=0.668),stringsAsFactors=FALSE)
+new_data <- list(var_a=13,var_b="HighN",var_c=0.668)
+print(new_data)
+str(new_data)
+
+# now bind them
+d_frame <- rbind(d_frame,new_data)
+str(d_frame)
+tail(d_rame)
+
+
+# adding another column is a little easier
+
+#newVar <- data.frame(varD=runif(13))
+new_var <- runif(13)
+d_frame <- cbind(d_frame,new_var)
+head(d_frame)
+
+### Important Distinctions Between Lists and Matrices
+
+# create a matrix and data frame with same structures
+z_mat <- matrix(data=1:30,ncol=3,byrow=TRUE)
+z_dframe <- as.data.frame(z_mat) # coerce it
+
+str(z_mat)    # an atomic vector with 2 dimensions
+str(z_dframe) # note horizontal layout of variabes!
+
+head(z_dframe) # note automatic variable names
+head(z_mat) # note identical layout
+
+# element referencing is the same in both
+z_mat[3,3]
+z_dframe[3,3]
+
+# so is column referencing
+
+z_mat[,3]
+z_dframe[,3]
+z_dframe$V3 # note use of $ and named variable column
+# and row referencing
+z_mat[3,]
+z_dframe[3,] # note variable names and row number shown
+
+# what happens if we reference only one dimension?
+
+z_mat[2] # takes the second element of atomic vector (column fill)
+z_dframe[2] # takes second atomic vector (= column) from list
+z_dframe["V2"]
+z_dframe$V2 # <- the $ references a variable not a string
+
+
+### Eliminating missing values
+
+# use complete.cases with atomic vector
+zd <- runif(10)
+zd[c(5,7)] <- NA
+print(zd)
+
+complete.cases(zd)
+
+zD[complete.cases(zd)] # clean them out
+
+which(!complete.cases(zd)) # find NA slots
+
+# use with a matrix
+
+m <- matrix(1:20,nrow=5)
+m[1,1] <- NA
+m[5,4] <- NA
+print(m)
+
+m[complete.cases(m),]
+
+# now get complete cases for only certain columns!
+m[complete.cases(m[,c(1,2)]),] # drops row 1
+m[complete.cases(m[,c(2,3)]),] # no drops
+m[complete.cases(m[,c(3,4)]),] # drops row 4
+m[complete.cases(m[,c(1,4)]),] # drops 1&4
+
+
+### Techniques for assignments and subsetting matrices and data frames
+
+# same principle applied to both dimensions of a matrix
+m <- matrix(data=1:12,nrow=3)
+dimnames(m) <- list(paste("Species",LETTERS[1:nrow(m)],sep=""),paste("Site",1:ncol(m),sep=""))
+print(m)
+
+# subsetting based on elements
+m[1:2,3:4]
+# same subsetting based on character strings (but no negative elements)
+m[c("SpeciesA","SpeciesB"), c("Site3","Site4")]
+
+# use blanks before or after comma to indicate full rows or columns
+m[1:2, ]
+
+m[ ,3:4]
+
+# use logicals for more complex subsetting
+
+# e.g. select all columns for which the totals are > 15
+
+# first try this logical
+colSums(m) > 15
+m[ , colSums(m) > 15]
+
+
+# e.g. select all rows for which the row total is 22
+m[rowSums(m)==22, ]
+
+# note == for logical equal and != for logical NOT equal
+m[rowSums(m)!=22, ]
+
+# e.g., choose all rows for which numbers for site 1 are less than 3
+# AND choose all columns for which the numbers for species A are less than 5
+
+# first, try out this logical for rows
+m[ ,"Site1"]<3
+
+# add this in and select with all columns
+m[m[ ,"Site1"]<3, ]
+
+# and try this logical for columns
+m["SpeciesA", ]<5
+
+# add this in and select with all rows
+m[ ,m["SpeciesA", ]<5]
+
+# now combine both
+m[m[ ,"Site1"]<3,m["SpeciesA", ]<5]
+
+# and compare with full m
+print(m)
+
+
+# caution! simple subscripting to a vector changes the data type!
+z <- m[1, ]
+print(z)
+str(z)
+
+# to keep this as a matrix, must add the drop=FALSE option
+
+z2 <- m[1, ,drop=FALSE]
+print(z2)
+str(z2)
+
+# caution #2, always use both dimensions, or you will select a single matrix element
+
+m2 <- matrix(data=runif(9),nrow=3)
+print(m2)
+m2[2, ]
+
+# but now this will just pull the second element
+m2[2]
+
+# probably should specify row and column indicators
+m2[2,1]
+# also use logicals for assignments, not just subsetting
+m2[m2>0.6] <- NA
+print(m2)
+
+
+# A few changes for working with data frames:
+# need to know the name of the file you want, might also need to give a path name
+#header = true means look in the first row of the data set to make column names
+#sep - character in each row that sepaarates 1 column to the next
+data <-read.csv(file="antcountydata.csv",header=TRUE,sep=",")
+str(data)
+
+# the data frame is a list of vectors, so it is set up like a matrix
+data[3,2]
+
+# you can specify just the column names
+
+data_names <- data[c("state","county")]
+str(dataNames)
+
+# or in matrix style
+data_names <- data[ ,c("county", "ecoregion")]
+str(data_names)
+
+
+# as before, with matrices, selecting only a single column changes it
+# from a data frame to a vector
+data_names <- data[ ,"county"]
+str(data_names)
+
 
 
 
