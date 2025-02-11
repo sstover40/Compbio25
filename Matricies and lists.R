@@ -288,10 +288,167 @@ str(data_names)
 data_names <- data[ ,"county"]
 str(data_names)
 
+## Data curation
+#* GitHub repository
+#* Metadata
+#* [Metadata template](https://gotellilab.github.io/Bio381/Scripts/Feb02/ExcelDataTemplate.xlsx)
+#Example of Lauren's data
+
+## Exporting and importing data
+
+#First create a tiny data set in Excel:
+
+# comments at the top
+# beaucoup metadata: makiing this in an excel file
+#ID, Treatment, Biomass, Notes
+#1, Control, 30.3,
+#2, HighN, 13.0,
+#3, HighN, NA, broken scale
+#4, Control, 35.3,
+
+#- Save as .csv
+#- Inspect in RStudio Editor
+
+### Use `read.table` to bring in data
+my_data <- read.table(file="path/to/data.csv",
+                      header=TRUE,
+                      sep=",",
+                      comment.char="#")
+
+# inspect object
+str(my_data)
+
+# now add a column
+my_data$newVar <- runif(4)
+head(my_data)
 
 
+### Use `write.table` to export to a data file
+write.table(x=my_data,
+            file="Path/To/OutputFileName.csv",
+            HEADER=TRUE,
+            sep=",")
 
 
+### Functions in R
+#Everything in R is a function
+# making user defined functions
+
+sum(3,2) #an prefix function
+3+2 # an operator which is actially a function
+'+'(3,2)
+
+y <- 3
+print(y)
+'<-'(yy,3)
+print(yy)
+
+sd #shows the code for the function
+sd(c(3,2)) # call the function with parameters
+# sd() # call function with default values for parameters
+
+### The Anatomy Of A User-Defined Function
+functionName <- function(parX=defaultX,parY=defaultY,parZ=defaultZ) {
+
+  # curly bracket open marks the start of the function body
+
+  # Body of the function goes here
+  # Lines of R code and annotations
+  # May also call functions
+  # May also create functions
+  # May also create local variables
+
+  return(z)  # returns from the function a single element (z could be a list)
+
+  # curly bracket close marks the end of the function body
+}
+
+# prints the function body
+functionName
+
+# calls the function with default values and returns object z
+functionName()
+
+# calls the function with user-specified values for each paramater
+functionName(parX=myMatrix,parY="Order",parZ=c(0.3,1.6,2,6))
+### Stylistic Conventions For Programming Functions
+#Use prominent hash character fencing at start and at finish
+#Give a header with the function name, description input, and output
+#names inside functions can be short
+#functions should be simple and short, no more than a screenful
+#if too complex, break into multiple shorter functions
+#provide default values for all function arguments
+#ideally use random numbers as defaults for rapid testing
+
+### A Sample Function For Hardy-Weinberg Equilibrium
+
+##################################################
+# FUNCTION: HardyWeinberg
+# input: an allele frequency p (0,1)
+# output: p and the frequencies of the 3 genotypes AA, AB, BB
+#-------------------------------------------------
+HardyWeinberg <- function(p=runif(1)) {
+  q <- 1 - p
+  fAA <- p^2
+  fAB <- 2*p*q
+  fBB <- q^2
+  vecOut <- signif(c(p=p,AA=fAA,AB=fAB,BB=fBB),digits=3)
+  return(vecOut)
+}
+##################################################
+HardyWeinberg()
+HardyWeinberg(p=0.5) # pass to the parameter the value p
+# print(p) # error because p does not exist in the global environment
+pp <- 0.6 # variable pp is stored in global environment
+HardyWeinberg(p=pp) # pass contents of variable pp to function parameter p
+print(pp) # variable pp is still stored in memory
+
+
+### Use Multiple `return()` Statements For Different Possible Return Values
+
+##################################################
+# FUNCTION: HardyWeinberg2
+# input: an allele frequency p (0,1)
+# output: p and the frequencies of the 3 genotypes AA, AB, BB
+#-------------------------------------------------
+HardyWeinberg2<- function(p=runif(1)) {
+  if (p > 1.0 | p < 0.0) {
+    return("Function failure: p must be >= 0.0 and <= 1.0")
+  }
+  q <- 1 - p
+  fAA <- p^2
+  fAB <- 2*p*q
+  fBB <- q^2
+  vecOut <- signif(c(p=p,AA=fAA,AB=fAB,BB=fBB),digits=3)
+  return(vecOut)
+}
+##################################################
+HardyWeinberg2()
+HardyWeinberg2(1.1) # OK, print error to screen
+z <- HardyWeinberg2(1.1) # uggh no error printed
+print(z) # Error message was saved to variable z!
+
+
+### Use `Stop` For True Error Trapping
+##################################################
+# FUNCTION: HardyWeinberg3
+# input: an allele frequency p (0,1)
+# output: p and the frequencies of the 3 genotypes AA, AB, BB
+#-------------------------------------------------
+HardyWeinberg3<- function(p=runif(1)) {
+  if (p > 1.0 | p < 0.0) {
+    stop("Function failure: p must be >= 0.0 and <= 1.0")
+  }
+  q <- 1 - p
+  fAA <- p^2
+  fAB <- 2*p*q
+  fBB <- q^2
+  vecOut <- signif(c(p=p,AA=fAA,AB=fAB,BB=fBB),digits=3)
+  return(vecOut)
+}
+##################################################
+HardyWeinberg3()
+#  z <- HardyWeinberg3(1.1)
 
 
 
