@@ -22,6 +22,9 @@ print(m)
 #transposing the matrix 
 m_trans <- t(m)
 print(m_trans)
+```
+The transposed matrix has the columns and rows switched from before. 
+```{r}
 
 #sum and mean first row
 sum(m_trans[1,])
