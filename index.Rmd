@@ -2,5 +2,5 @@
 title: "Sarah's Site"
 ---
 
-Sarah Stover's Computational Biology Worlk Spring 2025
+Sarah Stover's Computational Biology Work Spring 2025
 
