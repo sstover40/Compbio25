@@ -35,11 +35,12 @@ sum(m_trans[n_dims,])
 mean(m_trans[n_dims,])
 
 #eigen function
-eigen <- eigen(m_trans)
+eigen <- eigen(m)
 print(eigen)
-typeof(eigen)
+typeof(eigen$values)
+typeof(eigen$vectors)
 ```
-To my knowledge, the values that are returned when the eigen function is used tell you the factor used to scale the matrix or the relationship between the coefficients and the vectors. I think it returns a list of non-zero decomposition values hence "typeof" returning "list".
+To my knowledge, the values that are returned when the eigen function is used tell you the factor used to scale the matrix or the relationship between the coefficients and the vectors. The type for both eigen values and eigen vectors is "double"
 
 Question 2: 
 ```{r}
