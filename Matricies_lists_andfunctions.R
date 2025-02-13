@@ -450,10 +450,248 @@ HardyWeinberg3<- function(p=runif(1)) {
 HardyWeinberg3()
 #  z <- HardyWeinberg3(1.1)
 
+my_func <- function(a=3,b=4) { #this { indicates the start of the func. body
+  z <- a + b
+  return(z)
+}
+my_func()
+
+my_funcBad <-function(a=3) {
+  z <- a + b
+  return(z)
+}
+my_func_bad() # crashes because it can't find b
+b <- 100
+my_func_bad() # OK now because b exists as a global variable
+
+# But it is fine to create variables locally
+my_func_ok <- function(a=3) {
+  bb <- 100
+  z <- a + bb
+  return(z)
+}
+
+my_func_ok() # no problems now
+print(bb) # but this variable is still hidden from the global environment
+
+##################################################
+# FUNCTION: fit_linear
+# fits simple regression line
+# inputs: numeric vector of predictor (x) and response (y)
+# outputs: slope and p-value
+#-------------------------------------------------
+fit_linear <- function(x=runif(20),y=runif(20)) {
+  my_mod <- lm(y~x) # fit the model
+  my_out <- c(slope=summary(my_mod)$coefficients[2,1],
+              p_value=summary(my_mod)$coefficients[2,4]) #summary of points in my mod
+  plot(x=x,y=y) # quick and dirty plot to check output
+  return(my_out)
+##################################################
+fit_linear()
+
+##################################################
+# FUNCTION: fit_linear2
+# fits simple regression line
+# inputs: numeric vector of predictor (x) and response (y)
+# outputs: slope and p-value
+#-------------------------------------------------
+  ##################################################
+  # FUNCTION: fit_linear2
+  # fits simple regression line
+  # inputs: numeric vector of predictor (x) and response (y)
+  # outputs: slope and p-value
+  #-------------------------------------------------
+  fit_linear2 <- function(p=NULL) {
+    if(is.null(p)) {
+      p <- list(x=runif(20),y=runif(20))
+    }
+    my_mod <- lm(p$x~p$y) # fit the model
+    my_out <- c(slope=summary(my_mod)$coefficients[2,1],
+                p_value=summary(my_mod)$coefficients[2,4])
+    plot(x=p$x,y=p$y) # quick and dirty plot to check output
+    return(my_out)
+  }
+
+  ##################################################
+  fit_linear2()
+  my_pars <-list(x=1:10,y=sort(runif(10)))
+  fit_linear2(my_pars)
+
+   z <- c(runif(99),NA)
+  mean(z) # oops, mean doesn't work if there is an NA
+  mean(x=z,na.rm=TRUE) # change the default value for na.rm
+  mean(x=z,na.rm=TRUE,trim=0.05) # check out the "trim" option in help
+  l <- list(x=z,na.rm=TRUE,trim=0.05) # bundle paramaters as a list
+  do.call(mean,l) # use the do.call function with the function name and the parameter list
 
 
+  ### Logical operators
+  # Simple inequalities
+  5 > 3
+  5 < 3
+  5 >= 5
+  5 <= 5
+  5 == 3
+  5 != 3
+
+  # use & for AND
+  FALSE & FALSE
+  FALSE & TRUE
+  TRUE & TRUE
+  5 > 3 & 1!=2
+  1==2 & 1!=2
+
+  # use | for OR
+  FALSE | FALSE
+  FALSE | TRUE
+  TRUE | TRUE
+  1==2 | 1!=2
+
+  # works with vectors
+  1:5 > 3
+  a <- 1:10
+  b <- 10:1
+  a > 4 & b > 4
+
+  # use "long form" to evaluate left to write until a the first true/false is evaluated
+  # evaluates all elements and gives a vector of results
+  a < 4 & b > 4
+
+  # evaluates until the first logical result is created
+  a < 4 && b > 4
+
+  # similar format for "long form" for OR
+
+  # vector result
+  a < 4 | b > 4
+
+  # single result
+  a < 4 || b > 4
 
 
+  # xor for exclusive or testing of vectors
+  # works for (TRUE FALSE) but not (FALSE FALSE) or (TRUE TRUE)
+  xor(FALSE,FALSE)
+  xor(FALSE,TRUE)
+  xor(TRUE,TRUE)
+  a <- c(0,0,1)
+  b <- c(0,1,1)
+  xor(a,b)
+
+  # compare with a | b
+  # works for (TRUE FALSE) or (TRUE TRUE)
+  a | b
+
+  ### Set Operations
+  # boolean algebra on sets of atomic vectors (logical,numeric, character strings)
+
+  a <- 1:7
+  b <- 5:10
+
+  # union to get all elements
+  union(a,b)
+
+  # intersect to get common elements
+  intersect(a,b)
+
+  # setdiff to get distinct elements in a
+  setdiff(a,b)
+
+  setdiff(b,a)
+
+  # setequal to check for identical elements
+  setequal(a,b)
+
+  # more generally, to compare any two objects
+  z <- matrix(1:12,nrow=4,byrow=TRUE)
+  z1 <- matrix(1:12,nrow=4,byrow=FALSE)
+
+  # This just compares element by element
+  z==z1
+
+  # Use identical for entire structures
+  identical(z,z1)
+  z1 <- z
+  identical(z,z1)
+
+  # most useful for if statements is %in% or is.element
+  # these two are equivalent, but I prefer the %in% for readability
+  d <- 12
+  d %in% union(a,b)
+  is.element(d,union(a,b))
+
+  # check for partial matching with vector comparisons
+
+  d <- c(10,12)
+  d %in% union(a,b)
+  d %in% a
+
+  ### `If` statements
+  if (condition) {expression1}
+
+  if (condition) {expression1} else {expression2}
+
+  if (condition1) {expression1} else
+    if (condition2) {expression2} else
+
+  #note that final unspecified `else` captures rest of the (unspecified) conditions
+  #`else` statement must appear on the same line as the expression
+  # typically enclose multiple statements in brackets `{}` for compound expression
+
+  z <- signif(runif(1),digits=2)
+  print(z)
+  z > 0.5
+  if (z > 0.5) cat(z, "is a bigger than average number","\n")
+
+  if (z > 0.8) cat(z,"is a large number","\n") else
+    if (z < 0.2) cat(z,"is a small number","\n") else
+    {cat(z,"is a number of typical size","\n")
+      cat("z^2 =",z^2,"\n")}
+
+  # if statement requires a single logical value. With a vector,
+  # it will assign TRUE/FALSE based on very first element only.
+
+  z <- 1:10
+
+  # this does not do anything
+  if (z > 7) print(z)
+
+  # probably not what you want
+  if (z < 7) print(z)
+
+  # use subsetting!
+  print(z[z < 7])
+
+
+  # `ifelse` to fill vectors
+  ifelse(test,yes,no)
+
+#test is an object that can be coerced to a logical yes/no
+#yes return values for true elements of test
+#no return vales for false elements of test
+#Suppose we have an insect population in which each female lays, on average, 10.2 eggs, following a Poisson distribution with $\lambda = 10.2$. However, there is a 35% chance of parasitism, in which case no eggs are laid. Here is the distribution of eggs laid for 1000 individuals:
+
+  tester <- runif(1000) # start with random uniform elements
+  eggs <- ifelse(tester>0.35,rpois(n=1000,lambda=10.2),0)
+  hist(eggs)
+
+
+  Suppose we have a vector of p values (say from a simulation), and we want to create a vector to highlight the significant ones for plotting purposes.
+
+  ```{r}
+  pVals <- runif(1000)
+  z <- ifelse(pVals<=0.025,"lowerTail","nonSig")
+  z[pVals>=0.975] <- "upperTail"
+  table(z)
+  ```
+
+  Here is how I would probably do this
+  ```{r}
+  z1 <- rep("nonSig",1000)
+  z1[pVals<=0.025] <- "lowerTail"
+  z1[pVals>=0.975] <- "upperTail"
+  table(z1)
+  ```
 
 
 
