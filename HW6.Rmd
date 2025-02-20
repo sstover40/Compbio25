@@ -9,22 +9,124 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
+Data Set Information and Summary: 
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+For this homework, we are working with survey data of beekeepers in Vermont who are members VBA (Vermont Beekeepers Association). In this dataset they rated or commented their satisfation with certain areas of the organization. We want to understand the demographics of VBA and how the organization's resources are allotted. Who is needs more support and how can we be more inclusive to minorities or new beekeepers. Instead of generating our own data, we just built a nested forloop to go through the dataset and look at different categories. 
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+```{r}
+#uploading and reading the data frame, getting
+df <- read.csv("Annual Survey Results - 2025 Winter meeting.csv")
+#exploring the df
+head(df)
 
-```{r cars}
-summary(cars)
 ```
 
-## Including Plots
+Looking at Gendered differences in satisfaction between all organization categories: 
+```{r}
+library(dplyr)
+library(tidyr)
 
-You can also embed plots, for example:
+proportion_results <- list()
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+# Loop through each gender (Male and Female)
+for (gender in c("Male", "Female")) {
+  # Subset the data for this gender group
+  gender_data <- df[df$Gender == gender, ]
+  
+  # Initialize a list to store proportions for this gender
+  gender_proportions <- list()
+  
+  # Loop through each relevant column (Annual_meeting and Mentorship_programs)
+  for (column in c("Annual_meetings", "Mentorship_program", "Access_resources", "Educational_workshops", "Industry_policy_insights", "Networking_opportunities", "News_updates", "Marketing_social")) {
+    # Calculate the proportion of each category for this column
+    prop_very_satisfied <- mean(gender_data[[column]] == "Very satisfied") * 100
+    prop_satisfied <- mean(gender_data[[column]] == "Satisfied") * 100
+    prop_unsatisfied <- mean(gender_data[[column]] == "Unsatisfied") * 100
+    prop_very_unsatisfied <- mean(gender_data[[column]] == "Very unsatisfied") * 100
+    prop_neutral <- mean(gender_data[[column]] == "Neutral") * 100
+    prop_noexperience <- mean(gender_data[[column]] == "No prior experience") * 100
+    
+    # Store the results in the list for this column
+    gender_proportions[[column]] <- c("Very satisfied" = prop_very_satisfied,
+                                      "Satisfied" = prop_satisfied,
+                                      "Unsatisfied" = prop_unsatisfied,
+                                      "Very unsatisfied" = prop_very_unsatisfied,
+                                      "Neutral" = prop_neutral,
+                                      "No prior expreience" = prop_noexperience)
+  }
+  
+  # Store the results for this gender
+  proportion_results[[gender]] <- gender_proportions
+}
+
+# Print the results
+print(proportion_results)
+
+# Create a new column that indicates whether a person is unsatisfied or not
+df$Mentorship_programClean <- ifelse(df$Mentorship_program %in% c("Unsatisfied", "Very Unsatisfied", "Neutral"),  "Unsatisfied", "Satisfied")
+
+# Create a contingency table for gender vs unsatisfaction status
+contingency_table <- table(df$Gender, df$Mentorship_programClean)
+
+# Perform the Chi-squared test
+chi_squared_test <- chisq.test(contingency_table)
+
+# Print the results of the test
+print(chi_squared_test)
+
+print(contingency_table)
+```
+Because we are working with categorical values, we used a chi square analysis instead of ANOVA. Based on the p value (0.042) we can say there is a gendered difference between satisfaction levels. 
+
+Who is not coming to networking events by gender?: 
+```{r}
+#library(ggplot2 
+
+#sum
+
+
+  
+#gender --> df$Networking_opportunities --> no experience vs !no experience
+
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+Participation in Networking Events by Beekeeping Experience: 
+```{r}
+# Create a new column that indicates whether a person is unsatisfied or not
+df$Networking_opportunitiesClean <- ifelse(df$Networking_opportunities %in% c("Unsatisfied", "Very Unsatisfied", "Neutral"),  "Unsatisfied", "Satisfied")
+
+# Create a contingency table for gender vs unsatisfaction status
+contingency_table2 <- table(df$Beekeeping_experience, df$Networking_opportunitiesClean)
+
+print(contingency_table2)
+
+# Perform the Chi-squared test
+chi_squared_test2 <- chisq.test(contingency_table2)
+
+
+# Print the results of the test
+print(chi_squared_test2)
+
+# Get the standardized residuals
+standardized_residuals2 <- chi_squared_test2$stdres
+
+#Priint residuals
+print(standardized_residuals2)
+```
+Based on the Chi square value, there no significant satisfaction based on years of experience. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
