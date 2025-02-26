@@ -1,0 +1,106 @@
+---
+title: "HW7"
+author: "Sarah Stover"
+date: "2025-02-26"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+```{r} 
+library(tidyverse)
+```
+
+Question 1: 
+```{r} 
+glimpse(iris) 
+str(iris)
+
+```
+there are 5 columns or variables each referring to iris flower part (sepal width/length, petal width/length and then species of iris). It includes observations for 150 individual flowers
+
+Question 2: 
+```{r}
+iris1 <- filter(iris, Species == c("virginica", "versicolor"), Sepal.Length > 6, Sepal.Width > 2.5) 
+
+glimpse(iris1)
+
+```
+there are observations and still 5 varibales because I used filter and did not manipulate/mutate any columns (variables)
+
+Question 3: 
+```{r}
+iris2 <- select(iris1, Sepal.Length, Sepal.Width, Species)
+glimpse(iris2)
+```
+In this dataset there are 28 observations and 3 variables 
+
+Question 4: 
+
+```{r} 
+iris3 <- arrange(iris2, by = desc(Sepal.Length))
+head(iris3)
+
+```
+Question 5: 
+
+```{r} 
+iris4 <- mutate(iris3, Sepal.Area= (Sepal.Length * Sepal.Width))
+glimpse(iris4)
+```
+Observations are still 28 and variables are now 4
+
+Question 6: 
+
+```{r} 
+iris5 <- summarize(iris4, meanSepal.length = mean(Sepal.Length), meanSepal.Width = mean(Sepal.Width), number=n())
+
+print(iris5)
+```
+Question 7: 
+
+```{r}
+iris6 <- iris4 %>% 
+  group_by(Species) %>%
+  summarize(meanSepal.length = mean(Sepal.Length), meanSepal.Width = mean(Sepal.Width), number=n())
+
+print(iris6)
+```
+Question 8: 
+
+using the pipe for all prev questions
+```{r}
+
+irisFinal <- iris %>% 
+  filter(Species == c("virginica", "versicolor"), Sepal.Length > 6, Sepal.Width > 2.5) %>%
+  select(Sepal.Length, Sepal.Width, Species) %>% 
+  arrange(by = desc(Sepal.Length)) %>%
+  mutate(Sepal.Area= (Sepal.Length * Sepal.Width)) %>%
+  group_by(Species) %>%
+  summarize(meanSepal.length = mean(Sepal.Length), meanSepal.Width = mean(Sepal.Width), number=n())
+
+print(irisFinal)
+
+```
+  
+Question 9: 
+  
+  Create a ‘longer’ data frame using the original iris data set with three columns named “Species”, “Measure”, “Value”. The column “Species” will retain the species names of the data set. The column “Measure” will include whether the value corresponds to Sepal.Length, Sepal.Width, Petal.Length, or Petal.Width and the column “Value” will include the numerical values of those measurements.
+  
+```{r}
+
+long_iris <- iris %>%
+   pivot_longer(col = Sepal.Length:Petal.Width, names_to = "Measure", values_to = "Value")
+  
+print(long_iris)
+```
+  
+  
+  
+  
+
+
+
+
+
