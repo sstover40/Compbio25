@@ -280,53 +280,48 @@ vec &lt;- c(1:(n_dims^2))
 samp &lt;- sample(vec)
 #a square matrix with all the random samples that is n_dims length  
 m &lt;- matrix(data=samp, nrow=n_dims, ncol=n_dims)</code></pre>
-<pre><code>## Warning in matrix(data = samp, nrow = n_dims, ncol = n_dims): data length [21]
+<pre><code>## Warning in matrix(data = samp, nrow = n_dims, ncol = n_dims): data length [22]
 ## is not a sub-multiple or multiple of the number of rows [4]</code></pre>
 <pre class="r"><code>print(m)</code></pre>
 <pre><code>##      [,1] [,2] [,3] [,4]
-## [1,]   16   14    6   18
-## [2,]    8   15    7    9
-## [3,]   11   13    2   19
-## [4,]    1   12   20   10</code></pre>
+## [1,]    2   10    8   21
+## [2,]   19   17   15   14
+## [3,]    5   12   11    3
+## [4,]   20   16   18    9</code></pre>
 <pre class="r"><code>#transposing the matrix 
 m_trans &lt;- t(m)
 print(m_trans)</code></pre>
 <pre><code>##      [,1] [,2] [,3] [,4]
-## [1,]   16    8   11    1
-## [2,]   14   15   13   12
-## [3,]    6    7    2   20
-## [4,]   18    9   19   10</code></pre>
+## [1,]    2   19    5   20
+## [2,]   10   17   12   16
+## [3,]    8   15   11   18
+## [4,]   21   14    3    9</code></pre>
 <p>The transposed matrix has the columns and rows switched from
 before.</p>
 <pre class="r"><code>#sum and mean first row
 sum(m_trans[1,])</code></pre>
-<pre><code>## [1] 36</code></pre>
+<pre><code>## [1] 46</code></pre>
 <pre class="r"><code>mean(m_trans[1,])</code></pre>
-<pre><code>## [1] 9</code></pre>
+<pre><code>## [1] 11.5</code></pre>
 <pre class="r"><code>#sum and mean last row
 sum(m_trans[n_dims,])</code></pre>
-<pre><code>## [1] 56</code></pre>
+<pre><code>## [1] 47</code></pre>
 <pre class="r"><code>mean(m_trans[n_dims,])</code></pre>
-<pre><code>## [1] 14</code></pre>
+<pre><code>## [1] 11.75</code></pre>
 <pre class="r"><code>#eigen function
 eigen &lt;- eigen(m)
 print(eigen)</code></pre>
 <pre><code>## eigen() decomposition
 ## $values
-## [1]  44.210392+0.000000i -11.626941+0.000000i   5.208275+2.120941i
-## [4]   5.208275-2.120941i
+## [1]  50.123919+0.000000i -14.652105+0.000000i   1.764093+3.340318i
+## [4]   1.764093-3.340318i
 ## 
 ## $vectors
-##               [,1]           [,2]                     [,3]
-## [1,] -0.6065833+0i  0.29106441+0i -0.09044923+0.526694219i
-## [2,] -0.4248661+0i -0.05858759+0i  0.61842263+0.000000000i
-## [3,] -0.4939817+0i  0.71049742+0i -0.23309510+0.008993075i
-## [4,] -0.4555520+0i -0.63799876+0i -0.41112945-0.329429737i
-##                          [,4]
-## [1,] -0.09044923-0.526694219i
-## [2,]  0.61842263+0.000000000i
-## [3,] -0.23309510-0.008993075i
-## [4,] -0.41112945+0.329429737i</code></pre>
+##              [,1]           [,2]                   [,3]                   [,4]
+## [1,] 0.4319004+0i  0.80800900+0i -0.25506068-0.2035195i -0.25506068+0.2035195i
+## [2,] 0.6252917+0i -0.26646945+0i -0.44983218+0.3384512i -0.44983218-0.3384512i
+## [3,] 0.2915301+0i  0.02852261+0i  0.73210464+0.0000000i  0.73210464+0.0000000i
+## [4,] 0.5809324+0i -0.52469224+0i -0.02945357-0.1994516i -0.02945357+0.1994516i</code></pre>
 <pre class="r"><code>typeof(eigen$values)</code></pre>
 <pre><code>## [1] &quot;complex&quot;</code></pre>
 <pre class="r"><code>typeof(eigen$vectors)</code></pre>
@@ -364,39 +359,39 @@ df &lt;- data.frame(my_unis, my_letters)
 df[sample(nrow(df), 4), &quot;my_unis&quot;] &lt;- NA
 #which rows have NAs
 which(is.na(df[&quot;my_unis&quot;]))</code></pre>
-<pre><code>## [1]  4 13 16 22</code></pre>
+<pre><code>## [1]  1  6 13 16</code></pre>
 <pre class="r"><code>#ordering the data set alphabetically by 2nd var
 df[order(df$my_letters),]</code></pre>
 <pre><code>##      my_unis my_letters
-## 6  5.3642535          A
-## 11 2.6352356          B
-## 10 8.6864475          C
-## 7  5.6193683          D
-## 8  0.4398226          E
-## 5  7.4432219          F
-## 15 9.1810034          G
-## 20 9.0173529          H
-## 23 2.8435114          I
-## 14 5.8097134          J
-## 17 0.6736333          K
-## 18 4.6584788          L
-## 24 9.6186973          M
-## 26 5.9677202          N
-## 21 4.4837785          O
-## 2  7.6013302          P
-## 1  8.0279428          Q
-## 9  0.4278306          R
-## 12 6.8720169          S
-## 19 0.5762978          T
-## 3  4.4345051          U
-## 16        NA          V
-## 4         NA          W
-## 22        NA          X
-## 13        NA          Y
-## 25 4.3900279          Z</code></pre>
+## 16        NA          A
+## 23 5.7647369          B
+## 21 3.0189703          C
+## 9  3.7892691          D
+## 13        NA          E
+## 11 3.7219296          F
+## 8  2.2319677          G
+## 15 3.7946850          H
+## 2  0.7308246          I
+## 26 2.3100290          J
+## 14 7.3436310          K
+## 22 9.7735511          L
+## 7  1.1717039          M
+## 12 1.9326912          N
+## 20 0.7619914          O
+## 24 8.9295443          P
+## 17 6.2313911          Q
+## 3  5.1606750          R
+## 25 2.2583674          S
+## 1         NA          T
+## 19 0.4716558          U
+## 18 6.3444911          V
+## 5  2.2908501          W
+## 6         NA          X
+## 4  8.2248171          Y
+## 10 7.7950536          Z</code></pre>
 <pre class="r"><code>#calc column mean for 1st var without the NAs
 mean(df$my_unis, na.rm = T) </code></pre>
-<pre><code>## [1] 5.216918</code></pre>
+<pre><code>## [1] 4.275128</code></pre>
 
 
 
