@@ -272,7 +272,7 @@ $(document).ready(function () {
 </div>
 
 
-<p>Data Set Information and Summary:</p>
+<p><strong>Data Set Information and Summary:</strong></p>
 <p>For this homework, we are working with survey data of beekeepers in
 Vermont who are members VBA (Vermont Beekeepers Association). In this
 dataset they rated or commented their satisfation with certain areas of
@@ -341,8 +341,8 @@ head(df)</code></pre>
 ## 4             Other Sideliner Beekeeper (25-300 colonies)                   4-6
 ## 5   Central Vermont    Hobbyist Beekeeper (&lt;25 colonies)                    0-3
 ## 6</code></pre>
-<p>Looking at Gendered differences in satisfaction between all
-organization categories:</p>
+<p><strong>Looking at Gendered differences in satisfaction between all
+organization categories:</strong></p>
 <pre class="r"><code>library(dplyr)</code></pre>
 <pre><code>## 
 ## Attaching package: &#39;dplyr&#39;</code></pre>
@@ -513,15 +513,34 @@ print(chi_squared_test)</code></pre>
 <p>Because we are working with categorical values, we used a chi square
 analysis instead of ANOVA. Based on the p value (0.042) we can say there
 is a gendered difference between satisfaction levels.</p>
-<p>Who is not coming to networking events by gender?:</p>
+<p><strong>Who is not coming to networking events by
+gender?:</strong></p>
 <pre class="r"><code>#library(ggplot2 
 
-#sum
+#removes NAs, mutates original dataset, creates a new column called networking_attendance. Then looks at df$Networking_opportunities to see if the answer is &quot;no prior experience&quot;. if this is TRUE then its &quot;did not attend&quot; in the new column. Anything else is &quot;Attended&quot;.
+library(ggplot2)
 
+df &lt;- df %&gt;%
+  #filtering out NAs in Netwoking and Gender columns 
+  filter(!is.na(Networking_opportunities) &amp; !is.na(Gender) &amp; Gender != &quot;&quot;) %&gt;%
+  mutate(Networking_attendance = ifelse(Networking_opportunities == &quot;No prior experience&quot;, &quot;Did Not Attend&quot;, &quot;Attended&quot;))
 
-  
-#gender --&gt; df$Networking_opportunities --&gt; no experience vs !no experience</code></pre>
-<p>Participation in Networking Events by Beekeeping Experience:</p>
+ggplot(df, aes(x = Gender, fill = Networking_attendance)) + 
+  geom_bar(position = &quot;dodge&quot;) + #side by side bars
+  labs(title = &quot;Networking Opportunity Attendence by Gender&quot;, x = &quot;Gender&quot;, y = &quot;count&quot;) + scale_fill_manual(values = c(&quot;Attended&quot;= &quot;pink&quot;, &quot;Did Not Attend&quot; = &quot;orange&quot;))</code></pre>
+<p><img src="HW6_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<pre class="r"><code>NetworkOpp_by_Gender_table &lt;- table(df$Gender, df$Networking_attendance)
+print(NetworkOpp_by_Gender_table)</code></pre>
+<pre><code>##         
+##          Attended Did Not Attend
+##   Female       10              1
+##   Male         16              3</code></pre>
+<p>There doesn’t seem to be a bias in who is attending networking events
+by gender. The next thing to explore is by years of experience. Are
+those with less experience attending more or less than those already
+established?</p>
+<p><strong>Participation in Networking Events by Beekeeping
+Experience:</strong></p>
 <pre class="r"><code># Create a new column that indicates whether a person is unsatisfied or not
 df$Networking_opportunitiesClean &lt;- ifelse(df$Networking_opportunities %in% c(&quot;Unsatisfied&quot;, &quot;Very Unsatisfied&quot;, &quot;Neutral&quot;),  &quot;Unsatisfied&quot;, &quot;Satisfied&quot;)
 
@@ -531,7 +550,6 @@ contingency_table2 &lt;- table(df$Beekeeping_experience, df$Networking_opportuni
 print(contingency_table2)</code></pre>
 <pre><code>##       
 ##        Satisfied Unsatisfied
-##                9           3
 ##   0-3          7           1
 ##   10+          6           1
 ##   4-6         10           1
@@ -546,7 +564,7 @@ print(chi_squared_test2)</code></pre>
 ##  Pearson&#39;s Chi-squared test
 ## 
 ## data:  contingency_table2
-## X-squared = 2.0549, df = 4, p-value = 0.7257</code></pre>
+## X-squared = 0.65296, df = 3, p-value = 0.8842</code></pre>
 <pre class="r"><code># Get the standardized residuals
 standardized_residuals2 &lt;- chi_squared_test2$stdres
 
@@ -554,11 +572,10 @@ standardized_residuals2 &lt;- chi_squared_test2$stdres
 print(standardized_residuals2)</code></pre>
 <pre><code>##       
 ##         Satisfied Unsatisfied
-##        -1.2549900   1.2549900
-##   0-3   0.1604222  -0.1604222
-##   10+   0.0000000   0.0000000
-##   4-6   0.5731019  -0.5731019
-##   7-10  0.8583951  -0.8583951</code></pre>
+##   0-3  -0.2752409   0.2752409
+##   10+  -0.4316658   0.4316658
+##   4-6   0.1262892  -0.1262892
+##   7-10  0.7161149  -0.7161149</code></pre>
 <p>Based on the Chi square value, there no significant satisfaction
 based on years of experience.</p>
 
