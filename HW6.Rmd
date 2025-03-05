@@ -87,7 +87,7 @@ library(ggplot2)
 
 df <- df %>%
   #filtering out NAs in Netwoking and Gender columns 
-  filter(!is.na(Networking_opportunities) & !is.na(Gender) & Gender != "" & Networking_attendance != "") %>%
+  filter(!is.na(Networking_opportunities) & !is.na(Gender) & Gender != "") %>%
   mutate(Networking_attendance = ifelse(Networking_opportunities == "No prior experience", "Did Not Attend", "Attended"))
 
 ggplot(df, aes(x = Gender, fill = Networking_attendance)) + 
