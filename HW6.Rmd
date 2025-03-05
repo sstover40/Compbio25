@@ -9,7 +9,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-Data Set Information and Summary: 
+**Data Set Information and Summary:** 
 
 For this homework, we are working with survey data of beekeepers in Vermont who are members VBA (Vermont Beekeepers Association). In this dataset they rated or commented their satisfation with certain areas of the organization. We want to understand the demographics of VBA and how the organization's resources are allotted. Who is needs more support and how can we be more inclusive to minorities or new beekeepers. Instead of generating our own data, we just built a nested forloop to go through the dataset and look at different categories. 
 
@@ -21,7 +21,7 @@ head(df)
 
 ```
 
-Looking at Gendered differences in satisfaction between all organization categories: 
+**Looking at Gendered differences in satisfaction between all organization categories:** 
 ```{r}
 library(dplyr)
 library(tidyr)
@@ -78,19 +78,30 @@ print(contingency_table)
 ```
 Because we are working with categorical values, we used a chi square analysis instead of ANOVA. Based on the p value (0.042) we can say there is a gendered difference between satisfaction levels. 
 
-Who is not coming to networking events by gender?: 
+**Who is not coming to networking events by gender?:** 
 ```{r}
 #library(ggplot2 
 
-#sum
+#removes NAs, mutates original dataset, creates a new column called networking_attendance. Then looks at df$Networking_opportunities to see if the answer is "no prior experience". if this is TRUE then its "did not attend" in the new column. Anything else is "Attended".
+library(ggplot2)
 
+df <- df %>%
+  #filtering out NAs in Netwoking and Gender columns 
+  filter(!is.na(Networking_opportunities) & !is.na(Gender) & Gender != "" & Networking_attendance != "") %>%
+  mutate(Networking_attendance = ifelse(Networking_opportunities == "No prior experience", "Did Not Attend", "Attended"))
 
+ggplot(df, aes(x = Gender, fill = Networking_attendance)) + 
+  geom_bar(position = "dodge") + #side by side bars
+  labs(title = "Networking Opportunity Attendence by Gender", x = "Gender", y = "count") + scale_fill_manual(values = c("Attended"= "pink", "Did Not Attend" = "orange"))
   
-#gender --> df$Networking_opportunities --> no experience vs !no experience
+NetworkOpp_by_Gender_table <- table(df$Gender, df$Networking_attendance)
+print(NetworkOpp_by_Gender_table)
 
 ```
+There doesn't seem to be a bias in who is attending networking events by gender. The next thing to explore is by years of experience. Are those with less experience attending more or less than those already established?
 
-Participation in Networking Events by Beekeeping Experience: 
+
+**Participation in Networking Events by Beekeeping Experience:**
 ```{r}
 # Create a new column that indicates whether a person is unsatisfied or not
 df$Networking_opportunitiesClean <- ifelse(df$Networking_opportunities %in% c("Unsatisfied", "Very Unsatisfied", "Neutral"),  "Unsatisfied", "Satisfied")
