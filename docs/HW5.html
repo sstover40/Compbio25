@@ -280,48 +280,88 @@ vec &lt;- c(1:(n_dims^2))
 samp &lt;- sample(vec)
 #a square matrix with all the random samples that is n_dims length  
 m &lt;- matrix(data=samp, nrow=n_dims, ncol=n_dims)</code></pre>
-<pre><code>## Warning in matrix(data = samp, nrow = n_dims, ncol = n_dims): data length [11]
-## is not a sub-multiple or multiple of the number of rows [3]</code></pre>
+<pre><code>## Warning in matrix(data = samp, nrow = n_dims, ncol = n_dims): data length [93]
+## is not a sub-multiple or multiple of the number of rows [9]</code></pre>
 <pre class="r"><code>print(m)</code></pre>
-<pre><code>##      [,1] [,2] [,3]
-## [1,]    1    4    9
-## [2,]    7    2    6
-## [3,]   11    8    5</code></pre>
+<pre><code>##       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9]
+##  [1,]   70   66   85   65   55   21   13   29   19
+##  [2,]    8   36   54   47   51   79   68   31   28
+##  [3,]   17   49   34    7   48   14   45   43   44
+##  [4,]   16   56   60   37   62   27   23    3    1
+##  [5,]   90    4   50   58    2   11   42   53   52
+##  [6,]   82   93   22    9   88   26   10   74   24
+##  [7,]   30   76   67   86   20   91   61   57   59
+##  [8,]   63   78   46   89   41   64   87   35   81
+##  [9,]   32   69   18   33   38   39   77   12   40</code></pre>
 <pre class="r"><code>#transposing the matrix 
 m_trans &lt;- t(m)
 print(m_trans)</code></pre>
-<pre><code>##      [,1] [,2] [,3]
-## [1,]    1    7   11
-## [2,]    4    2    8
-## [3,]    9    6    5</code></pre>
+<pre><code>##       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9]
+##  [1,]   70    8   17   16   90   82   30   63   32
+##  [2,]   66   36   49   56    4   93   76   78   69
+##  [3,]   85   54   34   60   50   22   67   46   18
+##  [4,]   65   47    7   37   58    9   86   89   33
+##  [5,]   55   51   48   62    2   88   20   41   38
+##  [6,]   21   79   14   27   11   26   91   64   39
+##  [7,]   13   68   45   23   42   10   61   87   77
+##  [8,]   29   31   43    3   53   74   57   35   12
+##  [9,]   19   28   44    1   52   24   59   81   40</code></pre>
 <p>The transposed matrix has the columns and rows switched from
 before.</p>
 <pre class="r"><code>#sum and mean first row
 sum(m_trans[1,])</code></pre>
-<pre><code>## [1] 19</code></pre>
+<pre><code>## [1] 408</code></pre>
 <pre class="r"><code>mean(m_trans[1,])</code></pre>
-<pre><code>## [1] 6.333333</code></pre>
+<pre><code>## [1] 45.33333</code></pre>
 <pre class="r"><code>#sum and mean last row
 sum(m_trans[n_dims,])</code></pre>
-<pre><code>## [1] 20</code></pre>
+<pre><code>## [1] 348</code></pre>
 <pre class="r"><code>mean(m_trans[n_dims,])</code></pre>
-<pre><code>## [1] 6.666667</code></pre>
+<pre><code>## [1] 38.66667</code></pre>
 <pre class="r"><code>#eigen function
 eigen &lt;- eigen(m)
 print(eigen)</code></pre>
 <pre><code>## eigen() decomposition
 ## $values
-## [1] 17.992390 -6.778042 -3.214348
+## [1] 406.137281+ 0.00000i -18.881601+65.63743i -18.881601-65.63743i
+## [4]  43.881407+42.60669i  43.881407-42.60669i -44.818506+13.66036i
+## [7] -44.818506-13.66036i -28.768990+ 0.00000i   3.269108+ 0.00000i
 ## 
 ## $vectors
-##            [,1]       [,2]       [,3]
-## [1,] -0.4955814 -0.7846168  0.5147245
-## [2,] -0.4867955  0.2329747 -0.8466204
-## [3,] -0.7193256  0.5745426  0.1352503</code></pre>
+##               [,1]                    [,2]                    [,3]
+##  [1,] 0.3095663+0i  0.14222152-0.15803078i  0.14222152+0.15803078i
+##  [2,] 0.3248615+0i  0.29203172+0.07697488i  0.29203172-0.07697488i
+##  [3,] 0.2513328+0i -0.08125108+0.32735304i -0.08125108-0.32735304i
+##  [4,] 0.2089126+0i  0.32449186-0.07098944i  0.32449186+0.07098944i
+##  [5,] 0.2860161+0i -0.44069730+0.00000000i -0.44069730+0.00000000i
+##  [6,] 0.3514625+0i -0.08146596+0.39580031i -0.08146596-0.39580031i
+##  [7,] 0.4346191+0i  0.14396425-0.25988326i  0.14396425+0.25988326i
+##  [8,] 0.4601178+0i -0.27347064-0.23661484i -0.27347064+0.23661484i
+##  [9,] 0.2930661+0i -0.19576927-0.15691827i -0.19576927+0.15691827i
+##                          [,4]                    [,5]                    [,6]
+##  [1,]  0.4879915+0.000000000i  0.4879915+0.000000000i  0.15288540+0.02995124i
+##  [2,] -0.2006704-0.066016786i -0.2006704+0.066016786i  0.13085944-0.07942216i
+##  [3,] -0.2255738+0.331529445i -0.2255738-0.331529445i -0.21473257+0.08365059i
+##  [4,]  0.1923931+0.045302442i  0.1923931-0.045302442i -0.08229251+0.02695232i
+##  [5,]  0.2833159+0.050590146i  0.2833159-0.050590146i  0.08938133-0.12446114i
+##  [6,]  0.2650416-0.395299899i  0.2650416+0.395299899i -0.38900102+0.12409680i
+##  [7,] -0.3313257-0.003432768i -0.3313257+0.003432768i  0.64179394+0.00000000i
+##  [8,] -0.1589212-0.033035455i -0.1589212+0.033035455i  0.06812126+0.01663722i
+##  [9,] -0.2666044+0.028718221i -0.2666044-0.028718221i -0.52970783-0.06389344i
+##                          [,7]           [,8]           [,9]
+##  [1,]  0.15288540-0.02995124i -0.12943766+0i -0.27231019+0i
+##  [2,]  0.13085944+0.07942216i -0.17426486+0i -0.01996857+0i
+##  [3,] -0.21473257-0.08365059i  0.12354380+0i -0.29213317+0i
+##  [4,] -0.08229251-0.02695232i  0.02516034+0i  0.58548232+0i
+##  [5,]  0.08938133+0.12446114i  0.11285698+0i  0.13839824+0i
+##  [6,] -0.38900102-0.12409680i  0.35218695+0i -0.39117182+0i
+##  [7,]  0.64179394+0.00000000i -0.59944534+0i  0.19256995+0i
+##  [8,]  0.06812126-0.01663722i -0.19687530+0i  0.39121292+0i
+##  [9,] -0.52970783+0.06389344i  0.63412506+0i -0.36744644+0i</code></pre>
 <pre class="r"><code>typeof(eigen$values)</code></pre>
-<pre><code>## [1] &quot;double&quot;</code></pre>
+<pre><code>## [1] &quot;complex&quot;</code></pre>
 <pre class="r"><code>typeof(eigen$vectors)</code></pre>
-<pre><code>## [1] &quot;double&quot;</code></pre>
+<pre><code>## [1] &quot;complex&quot;</code></pre>
 <p>To my knowledge, the values that are returned when the eigen function
 is used tell you the factor used to scale the matrix or the relationship
 between the coefficients and the vectors. The type for both eigen values
@@ -355,39 +395,39 @@ df &lt;- data.frame(my_unis, my_letters)
 df[sample(nrow(df), 4), &quot;my_unis&quot;] &lt;- NA
 #which rows have NAs
 which(is.na(df[&quot;my_unis&quot;]))</code></pre>
-<pre><code>## [1] 14 15 22 26</code></pre>
+<pre><code>## [1]  7 12 17 23</code></pre>
 <pre class="r"><code>#ordering the data set alphabetically by 2nd var
 df[order(df$my_letters),]</code></pre>
-<pre><code>##       my_unis my_letters
-## 13 3.85678490          A
-## 26         NA          B
-## 2  4.02969970          C
-## 1  1.47778283          D
-## 24 3.00155037          E
-## 8  8.57580911          F
-## 19 4.60482249          G
-## 7  9.47728533          H
-## 10 7.23544443          I
-## 21 0.09215323          J
-## 16 4.96465892          K
-## 18 8.16547740          L
-## 11 1.43455334          M
-## 12 2.20404613          N
-## 23 3.04426569          O
-## 20 1.85885448          P
-## 14         NA          Q
-## 5  3.63925157          R
-## 4  3.76122478          S
-## 15         NA          T
-## 17 8.41030755          U
-## 9  0.26065766          V
-## 6  7.22945296          W
-## 3  5.45854613          X
-## 25 1.52228495          Y
-## 22         NA          Z</code></pre>
+<pre><code>##      my_unis my_letters
+## 21 9.2658328          A
+## 20 9.6398872          B
+## 3  4.9706681          C
+## 14 7.6463091          D
+## 22 2.3848159          E
+## 10 6.8643686          F
+## 9  5.3481755          G
+## 4  4.6465216          H
+## 18 4.6911480          I
+## 19 3.7194789          J
+## 24 9.7070023          K
+## 6  8.3849175          L
+## 13 7.3180013          M
+## 23        NA          N
+## 5  7.4043789          O
+## 7         NA          P
+## 25 6.4177824          Q
+## 2  1.7699101          R
+## 12        NA          S
+## 26 2.9989865          T
+## 16 0.3983996          U
+## 17        NA          V
+## 11 0.2977860          W
+## 8  8.4367052          X
+## 1  6.4801737          Y
+## 15 4.6635969          Z</code></pre>
 <pre class="r"><code>#calc column mean for 1st var without the NAs
 mean(df$my_unis, na.rm = T) </code></pre>
-<pre><code>## [1] 4.286587</code></pre>
+<pre><code>## [1] 5.611584</code></pre>
 
 
 
