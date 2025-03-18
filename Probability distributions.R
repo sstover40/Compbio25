@@ -4,7 +4,7 @@
 
 
 ############################
-# Function: my_histo
+# Function: hist
 # Purpose: creates a ggplot histogram
 # Requires: ggplot2
 # Input: a numeric vector
@@ -20,7 +20,7 @@ my_histo <- function(x=NULL) {
   print(p1)
 
 }
-my_histo()
+hist()
 
 ###Poisson Distributions###
 
@@ -133,6 +133,7 @@ quantile(x=myCoins,probs=c(0.025,0.975))
 # heterogeneous ("overdispersed") than Poisson
 hits <- 0:40
 myVec <- dnbinom(x=hits, size=5, prob=0.5)
+#size is the number of trials and prob = sucess on each one
 qplot(x=hits,y=myVec,geom="col",color=I("black"),fill=I("goldenrod"))
 
 #another way to plot
@@ -156,6 +157,99 @@ qplot(nbiRan,color=I("black"),fill=I("goldenrod"))
 
 nbiRan <- rnbinom(n=1000,size=0.1,mu=5)
 qplot(nbiRan,color=I("black"),fill=I("goldenrod"))
+#another type of discrete distribution, lambda is taken from another distribution
+
+#-------------------------------------------------
+# uniform
+# params specify minimum and maximum
+
+#runif for random data, data_type is assumed to be continuous
+hist(x=runif(n=100))
+hist(x=runif(n=1000))
+
+#-------------------------------------------------
+# normal distribution
+my_norm <- rnorm(n=100,mean=100,sd=2)
+hist(x=my_norm)
+
+
+# problems with normal when mean is small but zero is not allowed.
+my_norm <- rnorm(n=100,mean=2,sd=2)
+hist(x=my_norm )
+
+summary(my_norm)
+toss_zeroes <- my_norm[my_norm>0]
+hist(x=toss_zeroes)
+
+summary(toss_zeroes)
+
+#-------------------------------------------------
+# gamma distribution, continuous positive values, but bounded at 0
+
+my_gamma <- rgamma(n=100,shape=1,scale=10)
+hist(x=my_gamma)
+
+# gamma with shape= 1 is an exponential with scale = mean
+
+# shape <=1 gives a mode near zero; very small shape rounds to zero
+my_gamma <- rgamma(n=100,shape=0.1,scale=1)
+hist(x=my_gamma)
+
+# large shape parameters moves towards a normal
+my_gamma <- rgamma(n=100,shape=20,scale=1)
+hist(x=my_gamma)
+
+# scale parameter changes mean- and the variance!
+hist(x=rgamma(n=100,shape=2,scale=100))
+hist(x=rgamma(n=100,shape=2,scale=10))
+hist(x=rgamma(n=100,shape=2,scale=1))
+hist(x=rgamma(n=100,shape=2,scale=0.1))
+
+#-------------------------------------------------
+
+# beta distribution
+# bounded at 0 and 1
+# analagous to a binomial, but result is a continuous distribution of probabilities
+# parameter shape1 = number of successes + 1
+# parameter shape2 = number of failures + 1
+# interpret these in terms of a coin you are tossing
+
+# shape1 = 1, shape2 = 1 = "no data"
+my_beta <- rbeta(n=1000,shape1=1,shape2=1)
+hist(x=my_beta)
+
+# shape1 = 2, shape1 = 1 = "1 coin toss, comes up heads!"
+my_beta <- rbeta(n=1000,shape1=2,shape2=1)
+hist(x=my_beta)
+# two tosses, 1 head and 1 tail
+my_beta <- rbeta(n=1000,shape1=2,shape2=2)
+hist(x=my_beta)
+# two tosses, both heads
+my_beta <- rbeta(n=1000,shape1=2,shape2=1)
+hist(x=my_beta)
+# let's get more data
+my_beta <- rbeta(n=1000,shape1=20,shape2=20)
+hist(x=my_beta)
+my_beta <- rbeta(n=1000,shape1=500,shape2=500)
+hist(x=my_beta)
+
+# if the coin is biased
+my_beta <- rbeta(n=1000,shape1=1000,shape2=500)
+hist(x=my_beta)
+my_beta <- rbeta(n=1000,shape1=10,shape2=5)
+hist(x=my_beta)
+
+
+# shape parameters less than 1.0 give us a u-shaped distribution
+my_beta <- rbeta(n=1000,shape1=0.1,shape2=0.1)
+hist(x=my_beta)
+
+my_beta <- rbeta(n=1000,shape1=0.5,shape2=0.2)
+hist(x=my_beta)
+# unlike the normal, the two parameters affect both mean and variance
+
+# mean = shape*scale
+# variance= shape*scale^2
 
 #estimating paramaters from data
 
