@@ -43,7 +43,7 @@ What do we want?--> organized folders
 **Strategic Coding tools**              
 ```{r}
 
-#load libraries --- 
+##load libraries --- 
 library(pracma)
 library(pryr)
 library(devtools)
@@ -53,11 +53,21 @@ install_github("ngotelli/github")
 help(package="upscalar")
 
 ## Subheader A ---
+
 ## Subheader B ---
 
+library(package)
+add_folder() 
+add_folder(c("specialfolder1","specialfolders"))
+metadata_template(file= "originalData/MyData.csv")
+data_table_template(data_frame=NULL, file_name= "Outputs")
 
+........
 
+x <- runif(10) #an object to save
+saveRDS(object = x,
+        file="DataObjects/x.rds")#save to disk 
+restored_x <- readRDS(file="DataObjects/x.rds") #reopen to new name 
 
-
-
+```
 
