@@ -8,4 +8,23 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+Outline: 
+-problem of scaling 
+-set upin Rstudio
+-orgnization or Rstudio project 
+-annotation of script files and data files
+-logging 
+-saving and restoring R data objects 
+-useful tools (progress bar, timer, padded labels)
+-user defined functions 
+-pseudocodeand functional programming 
+
+
+1. The problem of scaling 
+
+
+
+
+
+
 

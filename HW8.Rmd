@@ -18,12 +18,11 @@ library(dplyr)
 z <- read.csv("UBO_DataSheet.csv",header=TRUE,sep=",")
 z <- z %>% 
   select(field_ID, assay_score) %>% 
-  filter(!is.na(assay_score))
+  filter(!is.na(assay_score))%>% 
+#changing any 0s to small non-0 numbers in a different column 
+  mutate(myVar = ifelse(assay_score == 0, 0.0001, assay_score))
 
-str(z)
-summary(z)
-
-colnames(z) <- c("ID", "myVar")
+colnames(z) <- c("ID", "Var", "myVar")
 
 library(ggplot2) # for graphics
 library(MASS) # for maximum likelihood estimation
@@ -104,4 +103,4 @@ pSpecial + statSpecial
 
 ```
 **Which Probability Curve is the best fit?**
- 
+ Based on all of the fit lines, I believe the exponential probability fits the best. 
