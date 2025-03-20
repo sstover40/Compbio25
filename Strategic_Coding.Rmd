@@ -21,6 +21,39 @@ Outline:
 
 
 1. The problem of scaling 
+symptoms- 
+  copying and pasting many lines of code within a script 
+  inconsistent formatting and obscure object/file names 
+  little to no annotation 
+  copying, renaming, editing entire script files
+  copying # by hand from screen output 
+  saving graphics through GUI 
+  difficulty using code to do anything other than original task 
+  eventually inability to reroduce original analysis 
+  
+What do we want?--> organized folders 
+                    Annotation 
+                    user defined functions  (short,simple,limited input and output)
+                    handle multiple input/output files
+                    use of RDS objects for complex and collaborative coding 
+                    outputs saved as .csv or final format images 
+                    relatively easy to add functionality
+              
+              
+**Strategic Coding tools**              
+```{r}
+
+#load libraries --- 
+library(pracma)
+library(pryr)
+library(devtools)
+#this is how you install a package from github!
+install_github("ngotelli/github")
+#this will take you to the page where package functions are defined
+help(package="upscalar")
+
+## Subheader A ---
+## Subheader B ---
 
 
 

@@ -103,4 +103,5 @@ pSpecial + statSpecial
 
 ```
 **Which Probability Curve is the best fit?**
- Based on all of the fit lines, I believe the exponential probability fits the best. 
+ 
+Based on all of the fit lines, I think that the gamma and exponential probability distributions fit the best. The beta distribution is likely too close to infinity at 0 to really fit our data set but both the gamma and exponential probability distributions are quite similar. This makes sense as the exponential distribution is part of the family of gamma probability distribution, just a special case of it. If we want to distinguish between these two curves to see what fits the hive hygenic behavior stats, More sampling is needed to get a higher resolution of the probability distribution.    
