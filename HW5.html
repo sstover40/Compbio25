@@ -280,61 +280,47 @@ vec &lt;- c(1:(n_dims^2))
 samp &lt;- sample(vec)
 #a square matrix with all the random samples that is n_dims length  
 m &lt;- matrix(data=samp, nrow=n_dims, ncol=n_dims)</code></pre>
-<pre><code>## Warning in matrix(data = samp, nrow = n_dims, ncol = n_dims): data length [45]
-## is not a sub-multiple or multiple of the number of rows [6]</code></pre>
+<pre><code>## Warning in matrix(data = samp, nrow = n_dims, ncol = n_dims): data length [19]
+## is not a sub-multiple or multiple of the number of rows [4]</code></pre>
 <pre class="r"><code>print(m)</code></pre>
-<pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6]
-## [1,]   39    4   25   33   37   12
-## [2,]   15   22   10    2   20   13
-## [3,]    8   31    6    9    5    7
-## [4,]    1   28   11   16   44   29
-## [5,]   17   41   27   32   35   23
-## [6,]   36   30   14   45   40   42</code></pre>
+<pre><code>##      [,1] [,2] [,3] [,4]
+## [1,]    8    7   11    1
+## [2,]   19    6   12    5
+## [3,]    3    9    2   15
+## [4,]   10   13   17   14</code></pre>
 <pre class="r"><code>#transposing the matrix 
 m_trans &lt;- t(m)
 print(m_trans)</code></pre>
-<pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6]
-## [1,]   39   15    8    1   17   36
-## [2,]    4   22   31   28   41   30
-## [3,]   25   10    6   11   27   14
-## [4,]   33    2    9   16   32   45
-## [5,]   37   20    5   44   35   40
-## [6,]   12   13    7   29   23   42</code></pre>
+<pre><code>##      [,1] [,2] [,3] [,4]
+## [1,]    8   19    3   10
+## [2,]    7    6    9   13
+## [3,]   11   12    2   17
+## [4,]    1    5   15   14</code></pre>
 <p>The transposed matrix has the columns and rows switched from
 before.</p>
 <pre class="r"><code>#sum and mean first row
 sum(m_trans[1,])</code></pre>
-<pre><code>## [1] 116</code></pre>
+<pre><code>## [1] 40</code></pre>
 <pre class="r"><code>mean(m_trans[1,])</code></pre>
-<pre><code>## [1] 19.33333</code></pre>
+<pre><code>## [1] 10</code></pre>
 <pre class="r"><code>#sum and mean last row
 sum(m_trans[n_dims,])</code></pre>
-<pre><code>## [1] 126</code></pre>
+<pre><code>## [1] 35</code></pre>
 <pre class="r"><code>mean(m_trans[n_dims,])</code></pre>
-<pre><code>## [1] 21</code></pre>
+<pre><code>## [1] 8.75</code></pre>
 <pre class="r"><code>#eigen function
 eigen &lt;- eigen(m)
 print(eigen)</code></pre>
 <pre><code>## eigen() decomposition
 ## $values
-## [1] 137.822662+ 0.00000i  10.894640+20.63976i  10.894640-20.63976i
-## [4]  21.522195+ 0.00000i -12.687910+ 0.00000i  -8.446226+ 0.00000i
+## [1] 37.404071+0.00000i -6.460737+1.57932i -6.460737-1.57932i  5.517402+0.00000i
 ## 
 ## $vectors
-##               [,1]                  [,2]                  [,3]          [,4]
-## [1,] -0.4237710+0i  0.6285953+0.0000000i  0.6285953+0.0000000i  0.2608877+0i
-## [2,] -0.2241087+0i -0.1047453-0.2445837i -0.1047453+0.2445837i  0.3233424+0i
-## [3,] -0.1550938+0i -0.2559928-0.1010066i -0.2559928+0.1010066i  0.3003856+0i
-## [4,] -0.3831551+0i -0.2147118+0.3201355i -0.2147118-0.3201355i -0.3273504+0i
-## [5,] -0.4588671+0i -0.1915998+0.2729513i -0.1915998-0.2729513i  0.1814154+0i
-## [6,] -0.6235163+0i  0.2772154-0.3488430i  0.2772154+0.3488430i -0.7727134+0i
-##                [,5]          [,6]
-## [1,]  0.12034096+0i -0.1321367+0i
-## [2,]  0.31998477+0i -0.2830929+0i
-## [3,] -0.63763983+0i  0.7178575+0i
-## [4,]  0.51374745+0i -0.3771664+0i
-## [5,] -0.08297262+0i -0.1053918+0i
-## [6,] -0.45356626+0i  0.4834429+0i</code></pre>
+##              [,1]                  [,2]                  [,3]          [,4]
+## [1,] 0.2998762+0i  0.4085275-0.2771741i  0.4085275+0.2771741i  0.3962983+0i
+## [2,] 0.4631119+0i -0.6322547+0.0000000i -0.6322547+0.0000000i  0.6059759+0i
+## [3,] 0.4426287+0i -0.1241100+0.4418352i -0.1241100-0.4418352i -0.4257277+0i
+## [4,] 0.7068815+0i  0.3211316-0.2068492i  0.3211316+0.2068492i -0.5426756+0i</code></pre>
 <pre class="r"><code>typeof(eigen$values)</code></pre>
 <pre><code>## [1] &quot;complex&quot;</code></pre>
 <pre class="r"><code>typeof(eigen$vectors)</code></pre>
@@ -372,39 +358,39 @@ df &lt;- data.frame(my_unis, my_letters)
 df[sample(nrow(df), 4), &quot;my_unis&quot;] &lt;- NA
 #which rows have NAs
 which(is.na(df[&quot;my_unis&quot;]))</code></pre>
-<pre><code>## [1]  8 14 16 26</code></pre>
+<pre><code>## [1]  3 13 17 21</code></pre>
 <pre class="r"><code>#ordering the data set alphabetically by 2nd var
 df[order(df$my_letters),]</code></pre>
 <pre><code>##       my_unis my_letters
-## 5  0.45045695          A
-## 24 6.46798774          B
-## 16         NA          C
-## 4  2.19326105          D
-## 15 6.90056919          E
-## 3  0.36689152          F
-## 6  7.13913932          G
-## 11 4.17372046          H
-## 17 6.03976065          I
-## 14         NA          J
-## 9  5.30848608          K
-## 25 1.19947693          L
-## 19 5.23310274          M
-## 10 5.24503743          N
-## 18 0.20141046          O
-## 26         NA          P
-## 1  7.77941494          Q
-## 8          NA          R
-## 20 8.61849208          S
-## 23 9.08656995          T
-## 13 6.67211691          U
-## 7  3.22477508          V
-## 12 0.07012539          W
-## 21 4.44925310          X
-## 2  7.13529446          Y
-## 22 3.23340693          Z</code></pre>
+## 1  8.31810355          A
+## 23 8.05554130          B
+## 19 5.94754068          C
+## 16 8.90607872          D
+## 11 4.50433408          E
+## 9  2.75561908          F
+## 17         NA          G
+## 12 4.31664510          H
+## 20 0.04043778          I
+## 22 8.55773504          J
+## 4  6.55544255          K
+## 14 4.53100658          L
+## 13         NA          M
+## 8  0.20023932          N
+## 18 9.73740385          O
+## 10 8.07096515          P
+## 15 1.46502554          Q
+## 5  4.75616697          R
+## 21         NA          S
+## 26 2.41860224          T
+## 6  3.38302503          U
+## 7  6.84446227          V
+## 2  3.97144293          W
+## 24 0.56267647          X
+## 25 5.78611780          Y
+## 3          NA          Z</code></pre>
 <pre class="r"><code>#calc column mean for 1st var without the NAs
 mean(df$my_unis, na.rm = T) </code></pre>
-<pre><code>## [1] 4.599489</code></pre>
+<pre><code>## [1] 4.985664</code></pre>
 
 
 
