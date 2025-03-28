@@ -387,5 +387,17 @@ clean_up()
 the package packrat bundles entire system to keep it at the same version
 bc R can change, things that worked on old update do not work in the new one. R typically does not tell you what is working and what doesn't
 
+Objects in R: 
+Script (s) 
+Function script (f)
+mainscript (m)
+Object (o)
+RDS (rds)
+input (*i) --> could be a CSV file 
+product/output (/p) --> could be csv, jpeg etc. 
 
-
+use m to make small function files 
+but outputs for one func may be inputs for another func 
+often break the project up into a series of scripts that will pull on indiv 
+function. more than one script will call on the func
+func should be independent - should not call usr defined func
