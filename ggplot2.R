@@ -352,5 +352,203 @@ m1 + facet_grid(.~class)
 m1 +  facet_wrap(~class)
 m1 + facet_wrap(~class + fl)
 m1 + facet_wrap(~class + fl, drop=FALSE)
+m1 + facet_grid(class~fl)
+# use facet with other aesthetic mapping within rows or columns
 
+m1 <- ggplot(data=mpg) +                                         aes(x=displ,y=cty,color=drv) +
+  geom_point()
 
+m1 + facet_grid(.~class)
+
+# easy to switch to other geoms
+m1 <- ggplot(data=mpg) +
+  aes(x=displ,y=cty,color=drv) +
+  geom_smooth(se=FALSE,method="lm")
+
+m1 + facet_grid(.~class)
+
+# fitting with boxplots over a continuous variable
+m1 <- ggplot(data=mpg) +
+  aes(x=displ,y=cty) +
+  geom_boxplot()
+
+m1 + facet_grid(.~class)
+
+# add a group and fill mapping for subgroups
+m1 <- ggplot(data=mpg) + aes(x=displ,y=cty,group=drv,fill=drv) +
+  geom_boxplot()
+
+m1 + facet_grid(.~class)
+
+# standard plot with all data
+p1 <- ggplot(data=d) +
+  aes(x=displ,y=hwy) +
+  geom_point() +
+  geom_smooth()
+print(p1)
+
+# break out the drive types (note what group affects
+p1 <- ggplot(data=d) +
+  aes(x=displ,y=hwy, group=drv) +
+  geom_point() +
+  geom_smooth()
+print(p1)
+
+# break out the drive types (note what color affects
+p1 <- ggplot(data=d) +
+  aes(x=displ,y=hwy, color=drv) +
+  geom_point() + geom_smooth()
+print(p1)
+
+# use both if you want points, lines, and confidence intervals colored
+p1 <- ggplot(data=d) +
+  aes(x=displ,y=hwy, color=drv, fill=drv) +
+  geom_point() + geom_smooth()
+print(p1)
+
+# now use aesthetic mappings within each geom to over-ride defaults
+# subset the data frame to pull out what you need
+
+p1 <- ggplot(data=d) +
+  aes(x=displ,y=hwy,col=drv) +
+  geom_point(data=d[d$drv=="4",]) + geom_smooth()
+print(p1)
+
+# instead of subsetting, just map an aesthetic
+p1 <- ggplot(data=d) +
+  aes(x=displ,y=hwy) +
+  geom_point(aes(color=drv)) + geom_smooth()
+print(p1)
+
+# Conversely, map the smoother, but not the points
+p1 <- ggplot(data=d) +
+  aes(x=displ,y=hwy) +
+  geom_point() + geom_smooth(aes(color=drv))
+print(p1)
+
+# also, subset in the first layer to eliminate some data entirely
+# instead of subsetting, just map an aesthetic
+p1 <- ggplot(data=d[d$drv!="4",]) +
+  aes(x=displ,y=hwy) +
+  geom_point(aes(color=drv)) + geom_smooth()
+print(p1)
+
+###----------------------------------------------------------------------------
+# WORKING WITH COLOR (GGPLOT III)
+
+# the :: separates the particular package that the command after comes from
+
+library(ggplot2)
+library(ggthemes)
+library(colorblindr)
+library(colorspace)
+library(wesanderson)
+library(ggsci)
+
+d <- mpg
+#use to plot the counts of rows for categorical variable
+table(d$drv)
+
+p1 <- ggplot(d) +
+  aes(x=drv) +
+  geom_bar(color="black",fill="cornsilk")
+print(p1)
+
+# aesthetic mapping gives multiple groups for each bar
+p1 <- ggplot(d) +
+  aes(x=drv,fill=fl) +
+  geom_bar()
+print(p1)
+
+# stacked, but need to adjust color transparency, which is "alpha"
+p1 <- ggplot(d) +
+  aes(x=drv,fill=fl) +
+  geom_bar(alpha = 0.3, position="identity")
+print(p1)
+
+# better to use position = fill for stacking, but with equivalent height
+p1 <- ggplot(d) +
+  aes(x=drv,fill=fl) +
+  geom_bar(position="fill")
+print(p1)
+
+# best to use position = dodge for multiple bars
+p1 <- ggplot(d) +
+  aes(x=drv,fill=fl) +
+  geom_bar(position="dodge",color="black",size=1)
+print(p1)
+
+# more typical "bar plot" has heights as the values themselves
+d_tiny <- tapply(X=d$hwy,INDEX=as.factor(d$fl),FUN=mean) #calculate the means,
+#we are passing the name of another function to this function
+print (d_tiny)
+
+d_tiny <- data.frame(hwy=d_tiny) # create a single-column data frame
+print(d_tiny)
+
+d_tiny <- cbind(fl=row.names(d_tiny),d_tiny) #
+print(d_tiny)
+
+p2 <- ggplot(d_tiny) +
+  aes(x=fl,y=hwy,fill=fl) +
+  geom_col()
+print(p2)
+
+# basic boxplot is simple and informative
+p1 <- ggplot(d) +
+  aes(x=fl,y=hwy,fill=fl) +
+  geom_boxplot()
+print(p1)
+
+# now overlay the raw data
+p1 <- ggplot(d) +
+  aes(x=fl,y=hwy) +
+  geom_boxplot(fill="thistle",outlier.shape=NA) +
+  # geom_point()
+  geom_point(position=position_jitter(width=0.1, height=0.7),
+             color="grey60",size=2)
+
+print(p1)
+# Aesthetics
+#
+# Colors that are attractive - large geoms (fills) - pale colors - small geoms(lines,points) - bright colors
+# Colors that highlight elements - pale, grey to de-emphasize - bright or saturated colors to emphasize
+# Colors that are visible to the color blind
+# Colors that convert well to black and white
+#
+# Information content
+#
+# Discrete scale
+#
+# colors to group similar treatments
+# neutral colors (black,grey,white) to indicate control groups
+# Symbolic colors (heat=red, cool = blue, photosynthesis/growth=green, oligotrophic=blue, eutrophic=brown, infected=red)
+# Colors that map to chemical stains or gels, or even colors of organisms
+#
+# Continuous scale
+#
+# monochromatic (differing shades of 1 color)
+# 2 tone chromatic scale (from color x to color y)
+# 3 tone divergent scale (from color x through color y to color z)
+#
+# Use color information within and between graphs
+#
+# show color names, hex in base R
+# show color schemes in colorbrewer
+#
+# Color visualizations
+my_cols <- c("thistle","tomato","cornsilk","cyan","chocolate")
+demoplot(my_cols,"map")
+demoplot(my_cols,"bar")
+demoplot(my_cols,"scatter")
+demoplot(my_cols,"heatmap")
+demoplot(my_cols,"spine")
+demoplot(my_cols,"perspective")
+
+# gray function versus gray colors
+
+# built in greys (0 = black, 100 = white
+my_greys <- c("grey20","grey50","grey80")
+demoplot(my_greys,"bar")
+my_greys2 <- grey(seq(from=0.1,to=0.9,length.out=10))
+demoplot(my_greys2,"heatmap")
