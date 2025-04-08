@@ -680,14 +680,17 @@ d$C <- abs(rnorm(5, sd=3))
 p9 <- ggplot(data=d) +
   scatterpie::geom_scatterpie(
     aes(x=x, y=y),
-    pie_scale=4,
+    pie_scale=1:5, #can adjust the size of the pies, here its by sample size
     cols=c("A", "B","C")) +
-  coord_fixed()
-# scale_fill_manual(values=c("coral","grey95","grey90"))
+  coord_fixed() +
+#want to change the colors from default???
+  scale_fill_manual(values=c("coral","grey95","grey90"))
 p9
 
+
 # mosaic plots for proportional data (1 or 2 factors). All combinations of factors must be present!
-# no zero values
+# no zero values - need to have each data type in each bin so must at least 1 of each tree type in
+#each city
 
 # Simple 1-factor partition
 # options hspine (default),vspine,vbar,hbar
@@ -698,7 +701,8 @@ city_tree$Freq <- c(100,2,25,
                     3,30,30,
                     2,2,5,
                     6,6,6)
-city_tree_long <- DescTools::Untable(city_tree)
+city_tree_long <- DescTools::Untable(city_tree) #need the city_tree in longform,
+#untable is the function that will do this, basically label with the tree names for each data point
 d <- city_tree_long
 
 p10 <- ggplot(data = d) +
@@ -719,7 +723,60 @@ p11 <- ggplot(data = d) +
   labs(title='mosaic v')
 p11
 
+p12 <- ggplot(data = d) +
+  geom_mosaic(aes(x = product(Tree,City),
+                  fill=Tree),
+              divider=mosaic("h")) +
+  labs(title='mosaic h')
+p12
 
+# 2 factor with conditioning
+p13 <- ggplot(data = d) +
+  geom_mosaic(aes(x=product(Tree), fill = Tree,
+                  conds = product(City))) +
+  labs(title='f(Tree | City)')
+p13
+
+# alternative to conditioning: faceting
+p13 <- ggplot(data = d) +
+  geom_mosaic(aes(x = product(Tree), fill=Tree), divider = "vspine") +
+  labs(title='f(Tree | City)') +
+  facet_grid(~City) +
+  theme(aspect.ratio = 3,
+        axis.text.x = element_blank(),
+        axis.ticks.x = element_blank())
+p13
+
+# tree map for hierarchical frequency data
+# in contrast to mosaic, this can accomodate missing data
+
+# simple one dimensional example (from mpg)
+
+d <- as.data.frame(table(Fuel=mpg$fl,Drive=mpg$drv))
+d$Fuel <- rep(c("Compressed Gas",
+                "Diesel",
+                "Ethanol",
+                "Premium",
+                "Regular"),3)
+d$Drive <- rep(c("Four Wheel",
+                 "Front Wheel",
+                 "Rear Wheel"),each=5)
+treemap(dtf=d,
+        index="Fuel",
+        vSize="Freq",
+        type="index")
+
+
+# now 2d with subgroups
+treemap(dtf=d,
+        index=c("Fuel","Drive"),
+        vSize="Freq",
+        type="index")
+
+treemap(dtf=d,
+        index=c("Drive","Fuel"),
+        vSize="Freq",
+        type="index")
 
 
 
