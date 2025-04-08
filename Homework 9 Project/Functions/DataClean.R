@@ -6,24 +6,22 @@
 # inputs: a data frame .csv file
 # outputs: the same data frame but minus rows with NAs
 ########################################
-data_clean <- function(x=NULL){
+data_clean <- function(df){
 
-# assign parameter defaults
-if (is.null(x)) {
-  print("your data frame does not exist! try checking the path or file name")
-}
-
-# function body: need to get rid of rows with NAs in 2 catagories:
+# function body:
+  #want to rename files and also need to get rid of rows with NAs in 2 catagories:
   # of species
   # of birds
 #based on the tables cannot just get rid of rows that have NAs bc there is a
-#column that is majority NAs
-x <- data %>%
-  #only removing rows with NAs in count and scientific name/species
-  filter(!is.na(x$pointCountMinute) & !is.na(x$scientificName))
 
-return(print('...checking function: data_clean(x)'))
-return(x)
+#column that is majority NAs
+df_clean <- df[,complete.cases("pointCountMinute", "scientificName" )]
+  #read the data frame
+  #only removing rows with NAs in count and scientific name/species
+
+return(df_clean)
+return(print('...checking function: data_clean(df)'))
+
 
 } # end of function data_clean
 # --------------------------------------

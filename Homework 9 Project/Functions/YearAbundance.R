@@ -1,23 +1,22 @@
 # --------------------------------------
 # FUNCTION year_abundance
 # required packages: none
-# description:
-# inputs:
-# outputs:
+# description: calculates the number of birds seen
+# inputs: df
+# outputs: number of birds seen based on the df column
 ########################################
-year_abundance <- function(x=NULL,y=NULL){
+year_abundance <- function(df){
 
 # assign parameter defaults
-if (is.null(x) | is.null(y)) {
-  x <- runif(10)
-  y <- runif(10)
-}
-
-# function body
-
-
-
-return(print('...checking function: year_abundance()'))
+  if(is.null(typeof(df))){
+    print("data frame does not exist")
+  }
+ # function body
+#df <- read.csv('df')
+total_sum <- sum(df$pointCountMinute)
+print(total_sum)
+return(total_sum)
+         #return(print('...checking function: year_abundance()'))
 
 } # end of function year_abundance
 # --------------------------------------
