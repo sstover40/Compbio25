@@ -5,11 +5,12 @@
 # inputs: df
 # outputs: number of birds seen based on the df column
 ########################################
-year_abundance <- function(df){
+year_abundance <- function(df=NULL){
 
 # assign parameter defaults
-  if(is.null(typeof(df))){
+  if(is.null(df)){
     print("data frame does not exist")
+    return(NULL)
   }
  # function body
 #df <- read.csv('df')
@@ -21,3 +22,4 @@ return(total_sum)
 } # end of function year_abundance
 # --------------------------------------
 # year_abundance()
+

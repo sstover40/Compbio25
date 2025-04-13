@@ -3,36 +3,42 @@
 # required packages: none
 # description: this makes a histogram using the summary_df
 # inputs: a data-frame
-# outputs: ggplot2 histogram
+# outputs: 2 ggplot2 histogram of species abundance and species richness
 ########################################
-library(ggplot2)
 
 # Create histogram and add labels to bins
-ggplot(data, aes(x = year)) +
-  geom_histogram(binwidth = 1, color = "black", fill = "lightblue") +
-  geom_label(stat = "bin", aes(label = ..count.., y = ..count..), vjust = -0.5) +
-  ggtitle("Histogram with Labels") +
-  labs(x = "Year", y = "Count") +
-  theme_minimal()
+# Load necessary library
+library(ggplot2)
 
-df <- summary_df
-gen_histo <- function(df){
-data <- df
-  plot_1 <- ggplot(data, aes(x=df$year, y=df$abundance)) +    #this graph is dealing with only 1 variable
-    geom_histogram(binwidth = 1, color = "black", fill="thistle") +
-    geom_label(stat = "bin", aes(label = "year", y = "Abundance (by indiv sighting)")) +
-    ggtitle("Bird Abundance") +
-    labs(x = "year", y = "abundance") +
+gen_histo <- function(df=NULL){
+
+  # assign parameter defaults
+  if(is.null(df)){
+    print("data frame does not exist")
+    return(NULL)
+  }
+  # Plot the histogram for abundance
+  abundance_plot <- ggplot(df, aes(x = as.factor(year), y = abundance)) +
+    geom_bar(stat = "identity", fill = "#008080" ) +
+    labs(x = "Year", y = "Abundance") +
     theme_minimal()
-  return(plot_1)
 
   # plot_2 <- ggplot(df, aes(x=year, y=species_richness)) +    #this graph is dealing with only 1 variable
-      geom_bar(stat = "identity", fill="teal", color = "Black" ) +
-      geom_label(x = "year", y = "Species Richness")
+  speciesRichness_plot <- ggplot(df, aes(x = as.factor(year), y = species_richness)) +
+    geom_bar(stat = "identity", fill = "#FF9500" ) +
+    labs(x = "Year", y = "Species Richness") +
+    theme_minimal()
+
+  #printing both graphs to check!
+  print(abundance_plot)
+  print(speciesRichness_plot)
+
+  return(abundance_plot)
+  return(speciesRichness_plot)
 }
 
-return(plot_1)
-return(plot_2)
  # end of function gen_histo
+
+
 # --------------------------------------
 # gen_histo()

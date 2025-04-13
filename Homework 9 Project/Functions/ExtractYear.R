@@ -5,18 +5,20 @@
 # inputs: df or df file name
 # outputs: the year in the file name
 ########################################
-extract_year <- function(df){
-  print(typeof(df))
+extract_year <- function(df=NULL){
 #parameter defaults
-  if(is.null(typeof(df))){
+  # assign parameter defaults
+  if(is.null(df)){
     print("data frame does not exist")
+    return(NULL)
   }
 # function body
 #looks at file_name and gets the year using regular expressions
   year <- sub(".*(\\d{4})-.*", "\\1", df)
+  print(paste("Extracted year:", year))
+  return(year)
 }
-print(paste("Extracted year:", year))
-return(year)
+
 #return(print('...checking function: extract_year()'))
 
 # end of function extract_year

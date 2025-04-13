@@ -5,10 +5,11 @@
 # inputs: csv file
 # outputs: total # of unique species or species richness
 ########################################
-calc_sr <- function(df){
-# assign parameter defaults
-  if(is.null(typeof(df))){
+calc_sr <- function(df=NULL){
+  # assign parameter defaults
+  if(is.null(df)){
     print("data frame does not exist")
+    return(NULL)
   }
 # function body
 #df <- read.csv(df)
