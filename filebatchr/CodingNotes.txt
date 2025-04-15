@@ -1,0 +1,16 @@
+Create toy files  #building a set of fake CSVs to store and test project
+read in the indiv. csv
+add columns for ID, filename, nrows
+write code to process csv
+create output inot the list
+create a summary df
+create summary plot
+transfer list to a line of summary
+
+need to open files with list.files()
+- may need reg expressions to get *.csv
+
+Global Variables
+- vector of filenames with paths
+- basenames()
+- vector of # pointing to columns in the csv

@@ -1,0 +1,13 @@
+logfile: logfile.txt
+#######################
+R version: R version 4.4.0 (2024-04-24)
+platform: x86_64-apple-darwin20
+running: macOS 15.3.1
+#----------------------
+random number seed: -632149372
+timestamp: Tue Apr 15 14:20:55 2025
+#----------------------
+libraries loaded:
+ggplot2 upscaler
+#######################
+INFO  [15-Apr 14:23:50] ...checking function: CreateToyDataFiles()
