@@ -75,23 +75,26 @@ final <- lapply(z,crunch_data)
 
 
 # do the work in a for loop
+l('runfor loop')
 output_df <- as.data.frame(matrix(rep(NA,length(file_names)*length(param_names)),nrow=length(file_names),ncol=length(param_names)))
 
 names(output_df)=param_names
 
 nobs <- rep(NA,length(file_names)) # empty vector for row counts
 
+l('start of for loop')
 for (i in 1:length(file_names)){
+  show_progress_bar(index=i)
   df <- read.table(file=file_names[[i]],
                    header = TRUE,
                    sep=",")
   . <- crunch_data(df=df,
-                   crunch_cols=unlist(crunch_cols),
                    param_names = param_names)
 
   output_df[i,] <- .
   nobs[i] <- nrow(df)
 }
+l('exit the for loop') #cant hand in an object into a log statment, would have to use the paste func.
 
 output_df
 
