@@ -43,15 +43,16 @@ What do we want?--> organized folders
 **Strategic Coding tools**              
 ```{r}
 
-##load libraries --- 
-library(pracma)
-library(pryr)
-library(devtools)
-#this is how you install a package from github!
-install_github("ngotelli/github")
-#this will take you to the page where package functions are defined
-help(package="upscalar")
-library(upscaler)
+##load libraries --- #was having trouble accessing ngotelli github 
+#uncomment for this to run
+# library(pracma)
+# library(pryr)
+# library(devtools)
+# #this is how you install a package from github!
+# install_github("ngotelli/github", Force = TRUE)
+# #this will take you to the page where package functions are defined
+# help(package="upscalar")
+# library(upscaler)
 
 ## Subheader A ---
 

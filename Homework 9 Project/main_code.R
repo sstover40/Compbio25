@@ -4,7 +4,7 @@
 
 library(devtools)
 library(dplyr)
-#install_github("ngotelli/upscaler", force=TRUE)
+install_github("ngotelli/upscaler", force=TRUE)
 library(upscaler)
 
 #BUILDING FUNCTIONS-------------------------------------------------------------------------------
