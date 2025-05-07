@@ -304,14 +304,8 @@ library(MASS) # for maximum likelihood estimation</code></pre>
 #summary(z$myVar)</code></pre>
 <p>Plot histogram of the data</p>
 <pre class="r"><code>p1 &lt;- ggplot(data=z, aes(x=myVar, y=..density..)) +
-  geom_histogram(color=&quot;grey60&quot;,fill=&quot;cornsilk&quot;,size=0.2) </code></pre>
-<pre><code>## Warning: Using `size` aesthetic for lines was deprecated
-## in ggplot2 3.4.0.
-## ℹ Please use `linewidth` instead.
-## This warning is displayed once every 8 hours.
-## Call `lifecycle::last_lifecycle_warnings()` to
-## see where this warning was generated.</code></pre>
-<pre class="r"><code>print(p1)</code></pre>
+  geom_histogram(color=&quot;grey60&quot;,fill=&quot;cornsilk&quot;,size=0.2) 
+print(p1)</code></pre>
 <pre><code>## Warning: The dot-dot notation (`..density..`) was
 ## deprecated in ggplot2 3.4.0.
 ## ℹ Please use `after_stat(density)` instead.
