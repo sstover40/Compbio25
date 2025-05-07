@@ -1,0 +1,23 @@
+Project Outline:
+
+- Create toy files
+- Read in individual csv
+- Write code to process csv
+- Create output in a list
+- Create summary df
+- Add columns for ID, filename, nrows
+- Create summary plot
+- Transfer list to a line of the summary plot
+
+Need to open files with list.files()
+- May need regular expressions to get *.csv
+
+Global variables
+- Vector of file names with paths
+- basenames()
+  - basenames strips out the path statement
+- Vectors of numbers pointing to columns in the .csv
+  - which columns in the .csv do we need to point to?
+
+
+

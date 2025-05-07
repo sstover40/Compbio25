@@ -1,7 +1,7 @@
 ---
 title: "HW10"
 author: "Sarah Stover"
-date: "2025-04-09"
+date: "2025-05-06"
 output: html_document
 ---
 
@@ -9,14 +9,5 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-**Pokemon**
-```{r}
-# Clean data provided by https://github.com/williamorim/pokemon. No cleaning was necessary.
 
-#install.packages("pokemon")
-pokemon_df <- pokemon::pokemon
-
-```
-need 4 graphs: 
-1.) 
 
