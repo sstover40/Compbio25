@@ -9,11 +9,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Sarah Stover" />
 
-<meta name="date" content="2025-02-12" />
 
-<title>HW5</title>
+<title>Homework_links</title>
 
 <script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -265,162 +263,18 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">HW5</h1>
-<h4 class="author">Sarah Stover</h4>
-<h4 class="date">2025-02-12</h4>
+<h1 class="title toc-ignore">Homework_links</h1>
 
 </div>
 
 
-<p>Question 1:</p>
-<pre class="r"><code>n_dims &lt;- runif(1, 3, 10) 
-#vector with values from 1-n_dims^2
-vec &lt;- c(1:(n_dims^2))
-#random sampling of vector above 
-samp &lt;- sample(vec)
-#a square matrix with all the random samples that is n_dims length  
-m &lt;- matrix(data=samp, nrow=n_dims, ncol=n_dims)
-print(m)</code></pre>
-<pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8]
-## [1,]   38   46   33   28   30   11   62   17
-## [2,]   56   32   40   15   47   21   14   44
-## [3,]   58   16   57   50   42   29   26   36
-## [4,]   27   10   53   60    9   54   64   12
-## [5,]   31    4   35   49    1   34   13   41
-## [6,]   18   23    6   51   37   19   63   39
-## [7,]    2   43   52   24    7   25    5   61
-## [8,]   20   55   59    8   48    3   22   45</code></pre>
-<pre class="r"><code>#transposing the matrix 
-m_trans &lt;- t(m)
-print(m_trans)</code></pre>
-<pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8]
-## [1,]   38   56   58   27   31   18    2   20
-## [2,]   46   32   16   10    4   23   43   55
-## [3,]   33   40   57   53   35    6   52   59
-## [4,]   28   15   50   60   49   51   24    8
-## [5,]   30   47   42    9    1   37    7   48
-## [6,]   11   21   29   54   34   19   25    3
-## [7,]   62   14   26   64   13   63    5   22
-## [8,]   17   44   36   12   41   39   61   45</code></pre>
-<p>The transposed matrix has the columns and rows switched from
-before.</p>
-<pre class="r"><code>#sum and mean first row
-sum(m_trans[1,])</code></pre>
-<pre><code>## [1] 250</code></pre>
-<pre class="r"><code>mean(m_trans[1,])</code></pre>
-<pre><code>## [1] 31.25</code></pre>
-<pre class="r"><code>#sum and mean last row
-sum(m_trans[n_dims,])</code></pre>
-<pre><code>## [1] 295</code></pre>
-<pre class="r"><code>mean(m_trans[n_dims,])</code></pre>
-<pre><code>## [1] 36.875</code></pre>
-<pre class="r"><code>#eigen function
-eigen &lt;- eigen(m)
-print(eigen)</code></pre>
-<pre><code>## eigen() decomposition
-## $values
-## [1] 263.484697+ 0.00000i -52.250629+ 0.00000i  42.560939+ 0.00000i
-## [4]  16.379705+30.07056i  16.379705-30.07056i -10.150508+18.95455i
-## [7] -10.150508-18.95455i  -9.253401+ 0.00000i
-## 
-## $vectors
-##              [,1]            [,2]           [,3]                    [,4]
-## [1,] 0.3502444+0i -0.424766950+0i -0.38040129+0i  0.08144197+0.19196958i
-## [2,] 0.3583263+0i  0.130990719+0i -0.42793779+0i  0.07262990+0.07312668i
-## [3,] 0.4269266+0i  0.117688815+0i  0.31420990+0i  0.10924778-0.38224321i
-## [4,] 0.3934518+0i -0.003297979+0i  0.59500119+0i  0.38742686-0.13148852i
-## [5,] 0.2901980+0i  0.620381190+0i  0.26408764+0i  0.13777475-0.07487085i
-## [6,] 0.3312368+0i -0.326035816+0i  0.01899788+0i  0.11143734+0.43364114i
-## [7,] 0.3075180+0i  0.335512098+0i -0.18449548+0i -0.35865900+0.14042770i
-## [8,] 0.3512270+0i -0.429898121+0i -0.33951147+0i -0.49704311+0.00000000i
-##                         [,5]                    [,6]                    [,7]
-## [1,]  0.08144197-0.19196958i -0.06492203-0.16191306i -0.06492203+0.16191306i
-## [2,]  0.07262990-0.07312668i -0.02582351+0.40600016i -0.02582351-0.40600016i
-## [3,]  0.10924778+0.38224321i  0.09824016+0.12327579i  0.09824016-0.12327579i
-## [4,]  0.38742686+0.13148852i  0.16174634+0.32087026i  0.16174634-0.32087026i
-## [5,]  0.13777475+0.07487085i -0.17003206+0.08721205i -0.17003206-0.08721205i
-## [6,]  0.11143734-0.43364114i -0.53736191+0.00000000i -0.53736191+0.00000000i
-## [7,] -0.35865900-0.14042770i  0.11980973-0.33809261i  0.11980973+0.33809261i
-## [8,] -0.49704311+0.00000000i  0.18798922-0.40102751i  0.18798922+0.40102751i
-##                [,8]
-## [1,]  0.13662579+0i
-## [2,] -0.52478827+0i
-## [3,]  0.13116239+0i
-## [4,] -0.58750836+0i
-## [5,] -0.13393186+0i
-## [6,]  0.08463123+0i
-## [7,]  0.43048364+0i
-## [8,]  0.36488994+0i</code></pre>
-<pre class="r"><code>typeof(eigen$values)</code></pre>
-<pre><code>## [1] &quot;complex&quot;</code></pre>
-<pre class="r"><code>typeof(eigen$vectors)</code></pre>
-<pre><code>## [1] &quot;complex&quot;</code></pre>
-<p>To my knowledge, the values that are returned when the eigen function
-is used tell you the factor used to scale the matrix or the relationship
-between the coefficients and the vectors. The type for both eigen values
-and eigen vectors is “double”</p>
-<p>Question 2:</p>
-<pre class="r"><code>#
-my_matrix &lt;- matrix(data=runif(16), nrow=4, ncol=4)
-my_logical &lt;- c(runif(100)&gt;50)
-my_letters &lt;- sample(letters, length(letters))
-#putting all of these in 1 list 
-my_list &lt;- list(my_matrix, my_logical, my_letters)
-
-# making a list of the second object in my matrix, logical, letters
-new_list &lt;- list(my_matrix[2,2], my_logical[2], my_letters[2])
-#returns type of object for every object in new_list
-sapply(new_list, typeof)</code></pre>
-<pre><code>## [1] &quot;double&quot;    &quot;logical&quot;   &quot;character&quot;</code></pre>
-<pre class="r"><code>#concatenated list of all values in new_list
-b &lt;- c(my_list)
-typeof(b)</code></pre>
-<pre><code>## [1] &quot;list&quot;</code></pre>
-<p>Question 3</p>
-<pre class="r"><code># 26 random numbers 
-my_unis &lt;- runif(26, 0, 10)
-#sampling of capital letters
-my_letters &lt;- sample(LETTERS, length(LETTERS)) 
-
-#creating the data frame 
-df &lt;- data.frame(my_unis, my_letters)
-#taking random rows and making them NAs
-df[sample(nrow(df), 4), &quot;my_unis&quot;] &lt;- NA
-#which rows have NAs
-which(is.na(df[&quot;my_unis&quot;]))</code></pre>
-<pre><code>## [1]  1  4 11 24</code></pre>
-<pre class="r"><code>#ordering the data set alphabetically by 2nd var
-df[order(df$my_letters),]</code></pre>
-<pre><code>##      my_unis my_letters
-## 22 8.6162443          A
-## 25 7.7563309          B
-## 20 5.2808591          C
-## 17 7.6662025          D
-## 19 0.5265665          E
-## 8  1.7539038          F
-## 26 9.6964318          G
-## 4         NA          H
-## 7  6.4289737          I
-## 18 3.8385819          J
-## 14 4.6666648          K
-## 13 6.1846450          L
-## 1         NA          M
-## 23 7.5796545          N
-## 21 2.5460702          O
-## 5  3.3967086          P
-## 2  5.3562972          Q
-## 12 4.5355939          R
-## 11        NA          S
-## 15 8.6006915          T
-## 24        NA          U
-## 10 5.7496279          V
-## 16 4.6817267          W
-## 6  8.6134743          X
-## 9  2.4260117          Y
-## 3  5.6957266          Z</code></pre>
-<pre class="r"><code>#calc column mean for 1st var without the NAs
-mean(df$my_unis, na.rm = T) </code></pre>
-<pre><code>## [1] 5.527136</code></pre>
+<p>Week 3 homework <a href="HW3.html">HW3 Link</a></p>
+<p>Week 4 Homework <a href="HW4.html">HW4 link</a></p>
+<p>Week 5 Homework <a href="HW5.html">HW5 link</a></p>
+<p>Week 6 Homework <a href="HW6.html">HW6 link</a></p>
+<p>Week 7 Homework <a href="HW7.html">HW7 link</a></p>
+<p>Week 8 Homework <a href="HW8.html">HW8 link</a></p>
+<p>Week 9 Homework <a href="Homework%209%20Project.zip">HW9 link</a></p>
 
 
 

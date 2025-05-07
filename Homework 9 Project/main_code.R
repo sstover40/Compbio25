@@ -31,6 +31,7 @@ library(upscaler)
 #                  "regression_model",
 #                  "gen_histo"))
 
+setwd("/Users/sarahstover/Desktop/Comp Bio /Compbio25/Homework 9 Project")
 #Source all function templates as a batch operation
 source_batch("Functions")
 
