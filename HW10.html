@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Sarah Stover" />
+
+<meta name="date" content="2025-05-06" />
+
+<title>HW10</title>
+
+<script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Stover_Bio381</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="Homework_links.html">Homeworks</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">HW10</h1>
+<h4 class="author">Sarah Stover</h4>
+<h4 class="date">2025-05-06</h4>
+
+</div>
+
+
+<p><strong>Advanced ggplotting:</strong> (Worked on this Homework with
+Rei) Using the Palm Trees data set from TidyTuesday:</p>
+<pre class="r"><code>#loading the packages
+library(ggplot2)
+library(ggridges)
+library(ggbeeswarm)
+library(GGally)</code></pre>
+<pre><code>## Registered S3 method overwritten by &#39;GGally&#39;:
+##   method from   
+##   +.gg   ggplot2</code></pre>
+<pre class="r"><code>library(ggpie)
+library(ggmosaic)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;ggmosaic&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:GGally&#39;:
+## 
+##     happy</code></pre>
+<pre class="r"><code>library(scatterpie)</code></pre>
+<pre><code>## Warning: package &#39;scatterpie&#39; was built under R version 4.4.1</code></pre>
+<pre><code>## scatterpie v0.2.4 Learn more at https://yulab-smu.top/</code></pre>
+<pre class="r"><code>library(waffle)
+library(DescTools)</code></pre>
+<pre><code>## Warning: package &#39;DescTools&#39; was built under R version 4.4.1</code></pre>
+<pre class="r"><code>library(treemap)
+library(devtools)</code></pre>
+<pre><code>## Loading required package: usethis</code></pre>
+<pre><code>## Warning: package &#39;usethis&#39; was built under R version 4.4.1</code></pre>
+<pre class="r"><code>library(extrafont)</code></pre>
+<pre><code>## Registering fonts with R</code></pre>
+<pre class="r"><code>#reading in the Palm Tree data set
+palmtrees &lt;- readr::read_csv(&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-03-18/palmtrees.csv&#39;,show_col_types = FALSE)
+
+#looking at top rows of df
+head(palmtrees)</code></pre>
+<pre><code>## # A tibble: 6 × 29
+##   spec_name acc_genus acc_species palm_tribe palm_subfamily climbing acaulescent
+##   &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;          &lt;chr&gt;    &lt;chr&gt;      
+## 1 Acanthop… Acanthop… crinita     Areceae    Arecoideae     climbing acaulescent
+## 2 Acanthop… Acanthop… rousselii   Areceae    Arecoideae     climbing acaulescent
+## 3 Acanthop… Acanthop… rubra       Areceae    Arecoideae     climbing acaulescent
+## 4 Acoelorr… Acoelorr… wrightii    Trachycar… Coryphoideae   climbing acaulescent
+## 5 Acrocomi… Acrocomia aculeata    Cocoseae   Arecoideae     climbing acaulescent
+## 6 Acrocomi… Acrocomia crispa      Cocoseae   Arecoideae     climbing acaulescent
+## # ℹ 22 more variables: erect &lt;chr&gt;, stem_solitary &lt;chr&gt;, stem_armed &lt;chr&gt;,
+## #   leaves_armed &lt;chr&gt;, max_stem_height_m &lt;dbl&gt;, max_stem_dia_cm &lt;dbl&gt;,
+## #   understorey_canopy &lt;chr&gt;, max_leaf_number &lt;dbl&gt;,
+## #   max__blade__length_m &lt;dbl&gt;, max__rachis__length_m &lt;dbl&gt;,
+## #   max__petiole_length_m &lt;dbl&gt;, average_fruit_length_cm &lt;dbl&gt;,
+## #   min_fruit_length_cm &lt;dbl&gt;, max_fruit_length_cm &lt;dbl&gt;,
+## #   average_fruit_width_cm &lt;dbl&gt;, min_fruit_width_cm &lt;dbl&gt;, …</code></pre>
+<p><strong>Bar Plot</strong></p>
+<p>looking at the species per subfamilies and the different fruit shapes
+per subfamily</p>
+<pre class="r"><code>#barplot of subfamily species with different fruit shapes 
+palm_barplot &lt;- ggplot(palmtrees) + 
+                          aes(x=palm_subfamily,fill=fruit_shape) +
+                          geom_bar(position=&quot;dodge&quot;,color=&quot;black&quot;,size=0.5) +
+                          labs(x = &quot;Subfamily&quot;, 
+                               y = &quot; # of Species within Subfamily&quot;, 
+                               fill = &quot;Fruit Shape&quot;) +
+                          scale_fill_brewer(palette = &quot;Pastel1&quot;) +
+                          theme(text = element_text(family = &quot;Helvetica&quot;),
+                                  axis.title.x = element_text(size = 12),
+                                  axis.text.x = element_text(size = 10),
+                                  axis.title.y = element_text(size = 10))</code></pre>
+<pre><code>## Warning: Using `size` aesthetic for lines was deprecated
+## in ggplot2 3.4.0.
+## ℹ Please use `linewidth` instead.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_lifecycle_warnings()` to
+## see where this warning was generated.</code></pre>
+<pre class="r"><code>palm_barplot</code></pre>
+<p><img src="HW10_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<pre class="r"><code>ggsave(palm_barplot,file=&quot;palm_barplot.png&quot;,width=10,height=6,bg = &quot;white&quot;)</code></pre>
+<p><strong>Pie Chart</strong></p>
+<p>looking at the size of each subfamily of palm tree</p>
+<pre class="r"><code>palm_piechart &lt;- ggpie::ggpie(data=palmtrees,
+                             group_key=&quot;palm_subfamily&quot;,
+                             count_type=&quot;full&quot;,
+                             label_info=&quot;ratio&quot;, 
+                             label_type=&quot;none&quot;) +
+                            scale_fill_brewer(palette = &quot;Pastel1&quot;) +
+                            labs(fill = &quot;Subfamily Name&quot;) +
+                            theme(text = element_text(family = &quot;Helvetica&quot;))</code></pre>
+<pre><code>## Scale for fill is already present.
+## Adding another scale for fill, which will
+## replace the existing scale.</code></pre>
+<pre class="r"><code>palm_piechart</code></pre>
+<p><img src="HW10_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<pre class="r"><code>ggsave(palm_piechart,file=&quot;palm_piechart.png&quot;,width=10,height=6,bg = &quot;white&quot;)</code></pre>
+<p><strong>sub-setting the data set by sub-family</strong></p>
+<pre class="r"><code>arecoideae &lt;- palmtrees[which(palmtrees$palm_subfamily == &quot;Arecoideae&quot;),]
+calamoideae &lt;- palmtrees[which(palmtrees$palm_subfamily == &quot;Calamoideae&quot;),]
+ceroxyloideae &lt;- palmtrees[which(palmtrees$palm_subfamily == &quot;Ceroxyloideae&quot;),]
+coryphoideae &lt;- palmtrees[which(palmtrees$palm_subfamily == &quot;Coryphoideae&quot;),]
+nypoideae &lt;- palmtrees[which(palmtrees$palm_subfamily == &quot;Nypoideae&quot;),]</code></pre>
+<p><strong>Beeswarm Plot</strong> This beeswarm plot explores Petiole
+size and if the palm trees in the sub-family Calamoideae climb. Petiole
+is the stalk that connects the stem to the leaf blade. This shows that
+Calamoideae plants with a longer petiole tend to be climbers.</p>
+<pre class="r"><code>palm_beeswarm &lt;- ggplot(data=calamoideae) +
+                            aes(x=climbing,y=max__petiole_length_m,color=climbing) + 
+                            ggbeeswarm::geom_beeswarm(method = &quot;center&quot;,size=3) +
+                            scale_color_brewer(palette = &quot;Accent&quot;) +
+                            labs(x = &quot;Climbing Type&quot;, y = &quot;Maximum Petiole Length&quot;) +
+                            theme(legend.position=&quot;none&quot;) +
+                            theme(text = element_text(family = &quot;Helvetica&quot;),
+                                  axis.title.x = element_text(size = 12),
+                                  axis.text.x = element_text(size = 10),
+                                  axis.title.y = element_text(size = 12))
+
+palm_beeswarm</code></pre>
+<pre><code>## Warning: In `position_beeswarm`, method `center`
+## discretizes the data axis (a.k.a the continuous
+## or non-grouped axis).
+## This may result in changes to the position of
+## the points along that axis, proportional to the
+## value of `cex`.
+## This warning is displayed once per session.</code></pre>
+<pre><code>## Warning: Removed 477 rows containing missing values or
+## values outside the scale range (`geom_point()`).</code></pre>
+<p><img src="HW10_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<pre class="r"><code>ggsave(palm_beeswarm,file=&quot;palm_beeswarm.png&quot;,width=10,height=6,bg = &quot;white&quot;)</code></pre>
+<pre><code>## Warning: Removed 477 rows containing missing values or
+## values outside the scale range (`geom_point()`).</code></pre>
+<p><strong>Waffle plot</strong></p>
+<p>This plot shows the number of tribes in the subfamily Calamoideae and
+the number of species per tribe</p>
+<pre class="r"><code>tabled_data &lt;- as.data.frame(table(class=coryphoideae$palm_tribe))
+
+palm_waffle &lt;- ggplot(data=tabled_data) +
+                          aes(fill = class, values = Freq) +
+                          waffle::geom_waffle(n_rows = 10, size = 0.3, colour = &quot;white&quot;) +
+                          scale_fill_manual(name = &quot;Tribe Names:&quot;,
+                                            values = c(&quot;#698B69&quot;, &quot;#528B8B&quot;,&quot;#CD8C95&quot;, &quot;#B2DFEE&quot;, &quot;#EE9572&quot;,&quot;#CDCDC1&quot;,&quot;#CD96CD&quot;,&quot;#CDBA96&quot;),
+                                            labels = c(&quot;Borasseae&quot;, &quot;Caryoteae&quot;, &quot;Chuniophoeniceae&quot;,&quot;Corypheae&quot;,&quot;Cryosophileae&quot;,&quot;Phoeniceae&quot;,&quot;Sabaleae&quot;,&quot;Trachycarpeae&quot;)) +
+                          coord_equal() +
+                          theme_void() +
+                          theme(legend.position = &quot;bottom&quot;, text = element_text(family = &quot;Helvetica&quot;))
+
+palm_waffle</code></pre>
+<p><img src="HW10_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<pre class="r"><code>ggsave(palm_waffle,file=&quot;palm_waffle.png&quot;,width=10,height=6,bg = &quot;white&quot;)</code></pre>
+<p><strong>Ridgeline plot</strong></p>
+<p>This plot shows the range of maximum stem heights per palm
+sub-family</p>
+<pre class="r"><code>palm_subfamily_df &lt;- data.frame(palmtrees$palm_subfamily)
+palm_stemheight_df &lt;- data.frame(palmtrees$max_stem_height_m)
+palm_df &lt;- cbind(palm_subfamily_df, palm_stemheight_df)
+palm_df_clean &lt;- palm_df[complete.cases(palm_df),]
+
+palm_ridgeline &lt;- ggplot(data=palm_df_clean,
+                         aes(x=palmtrees.max_stem_height_m,y=palmtrees.palm_subfamily, fill = palmtrees.palm_subfamily)) + 
+                         scale_fill_brewer(palette = &quot;Accent&quot;) +
+                         ggridges::geom_density_ridges(scale = 0.9) +
+                         ggridges::theme_ridges() +
+                         scale_x_continuous(limits = c(-10,100)) +
+                         xlab(&quot;Maximum stem height (m)&quot;) +
+                         ylab(&quot;Subfamily&quot;) +
+                         theme(legend.position = &quot;none&quot;, text = element_text(family = &quot;Helvetica&quot;))
+
+palm_ridgeline</code></pre>
+<pre><code>## Picking joint bandwidth of 3.08</code></pre>
+<pre><code>## Warning: Removed 3 rows containing non-finite outside the
+## scale range (`stat_density_ridges()`).</code></pre>
+<p><img src="HW10_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<pre class="r"><code>ggsave(palm_ridgeline,file=&quot;palm_ridgeline.png&quot;,width=10,height=6,bg = &quot;white&quot;)</code></pre>
+<pre><code>## Picking joint bandwidth of 3.08</code></pre>
+<pre><code>## Warning: Removed 3 rows containing non-finite outside the
+## scale range (`stat_density_ridges()`).</code></pre>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
