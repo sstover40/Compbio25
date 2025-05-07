@@ -337,11 +337,12 @@ palm_barplot &lt;- ggplot(palmtrees) +
                                   axis.title.x = element_text(size = 12),
                                   axis.text.x = element_text(size = 10),
                                   axis.title.y = element_text(size = 10))</code></pre>
-<pre><code>## Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+<pre><code>## Warning: Using `size` aesthetic for lines was deprecated
+## in ggplot2 3.4.0.
 ## ℹ Please use `linewidth` instead.
 ## This warning is displayed once every 8 hours.
-## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
-## generated.</code></pre>
+## Call `lifecycle::last_lifecycle_warnings()` to
+## see where this warning was generated.</code></pre>
 <pre class="r"><code>palm_barplot</code></pre>
 <p><img src="HW10_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 <pre class="r"><code>ggsave(palm_barplot,file=&quot;palm_barplot.png&quot;,width=10,height=6,bg = &quot;white&quot;)</code></pre>
@@ -356,7 +357,8 @@ palm_barplot &lt;- ggplot(palmtrees) +
                             labs(fill = &quot;Subfamily Name&quot;) +
                             theme(text = element_text(family = &quot;Helvetica&quot;))</code></pre>
 <pre><code>## Scale for fill is already present.
-## Adding another scale for fill, which will replace the existing scale.</code></pre>
+## Adding another scale for fill, which will
+## replace the existing scale.</code></pre>
 <pre class="r"><code>palm_piechart</code></pre>
 <p><img src="HW10_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 <pre class="r"><code>ggsave(palm_piechart,file=&quot;palm_piechart.png&quot;,width=10,height=6,bg = &quot;white&quot;)</code></pre>
@@ -382,17 +384,19 @@ Calamoideae plants with a longer petiole tend to be climbers.</p>
                                   axis.title.y = element_text(size = 12))
 
 palm_beeswarm</code></pre>
-<pre><code>## Warning: In `position_beeswarm`, method `center` discretizes the data axis (a.k.a the
-## continuous or non-grouped axis).
-## This may result in changes to the position of the points along that axis,
-## proportional to the value of `cex`.
+<pre><code>## Warning: In `position_beeswarm`, method `center`
+## discretizes the data axis (a.k.a the continuous
+## or non-grouped axis).
+## This may result in changes to the position of
+## the points along that axis, proportional to the
+## value of `cex`.
 ## This warning is displayed once per session.</code></pre>
-<pre><code>## Warning: Removed 477 rows containing missing values or values outside the scale range
-## (`geom_point()`).</code></pre>
+<pre><code>## Warning: Removed 477 rows containing missing values or
+## values outside the scale range (`geom_point()`).</code></pre>
 <p><img src="HW10_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 <pre class="r"><code>ggsave(palm_beeswarm,file=&quot;palm_beeswarm.png&quot;,width=10,height=6,bg = &quot;white&quot;)</code></pre>
-<pre><code>## Warning: Removed 477 rows containing missing values or values outside the scale range
-## (`geom_point()`).</code></pre>
+<pre><code>## Warning: Removed 477 rows containing missing values or
+## values outside the scale range (`geom_point()`).</code></pre>
 <p><strong>Waffle plot</strong></p>
 <p>This plot shows the number of tribes in the subfamily Calamoideae and
 the number of species per tribe</p>
@@ -431,13 +435,13 @@ palm_ridgeline &lt;- ggplot(data=palm_df_clean,
 
 palm_ridgeline</code></pre>
 <pre><code>## Picking joint bandwidth of 3.08</code></pre>
-<pre><code>## Warning: Removed 3 rows containing non-finite outside the scale range
-## (`stat_density_ridges()`).</code></pre>
+<pre><code>## Warning: Removed 3 rows containing non-finite outside the
+## scale range (`stat_density_ridges()`).</code></pre>
 <p><img src="HW10_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 <pre class="r"><code>ggsave(palm_ridgeline,file=&quot;palm_ridgeline.png&quot;,width=10,height=6,bg = &quot;white&quot;)</code></pre>
 <pre><code>## Picking joint bandwidth of 3.08</code></pre>
-<pre><code>## Warning: Removed 3 rows containing non-finite outside the scale range
-## (`stat_density_ridges()`).</code></pre>
+<pre><code>## Warning: Removed 3 rows containing non-finite outside the
+## scale range (`stat_density_ridges()`).</code></pre>
 
 
 
